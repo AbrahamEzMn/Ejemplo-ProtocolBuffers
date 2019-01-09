@@ -4,18 +4,18 @@ Protocol Buffers - Instalación y ejecución de Protobuf
 Versión
 --------
 
-Os: Ubuntu 18.04.1 LTS
-Cpu: Intel(R) Core(TM) i3-3120M @ 2.50GHz
-Protobuf: libprotoc 3.6.1
+Os: Ubuntu 18.04.1 LTS<br/>
+Cpu: Intel(R) Core(TM) i3-3120M @ 2.50GHz<br/>
+Protobuf: libprotoc 3.6.1<br/>
 Sintaxis: Proto3
 
 
 Procedimiento
 -------------
 
-Esta guía describe los pasos para instalar y ejecutar <b>protoc</b> en un sistema oerativo base Linux, y ademas de eso,  generar algunos Messages en la versión de [proto3](https://developers.google.com/protocol-buffers/docs/proto3).
+Esta guía describe los pasos para instalar y ejecutar <b>protoc</b> en un sistema operativo base Linux, y ademas de eso,  generar algunos Messages en la versión de [proto3](https://developers.google.com/protocol-buffers/docs/proto3).
 
-1.- Descargar el ejecutable del compilador de protocol buffer para sistemas operativos linux en su versión 3.6.1 (protoc), para ver la lista de versiones mas recientes o para diferentes sistemas operativos hacer [click aqui](https://github.com/protocolbuffers/protobuf/releases)   
+1.- Descargar el ejecutable del compilador de protocol buffer para sistemas operativos Linux en su versión 3.6.1 (protoc), para ver la lista de versiones mas recientes o para diferentes sistemas operativos hacer [click aqui](https://github.com/protocolbuffers/protobuf/releases)   
 ```
 $ wget https://github.com/protocolbuffers/protobuf/releases/download/v3.6.1/protoc-3.6.1-linux-x86_64.zip
 ```
