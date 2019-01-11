@@ -16,7 +16,7 @@ Esta guía describe los pasos para instalar ejecutar <b>protoc</b> y generar alg
 $ wget https://github.com/protocolbuffers/protobuf/releases/download/v3.6.1/protoc-3.6.1-linux-x86_64.zip
 ```
 
-2.- Descomprimivos el zip en una carpeta llamada "protoc3.6.1"
+2.- Descomprimivos el zip en una carpeta llamada protoc3.6.1
 ```
 $ unzip protoc-3.6.1-linux-x86_64.zip -d protoc3.6.1
 ```
@@ -100,7 +100,7 @@ Explicación
 ### Comandos de ejemplos para generar archivos en diferentes lenguajes.
 *C++*
 ```
-$ protoc --proto_path=./ --cpp_out=./java/ person.proto
+$ protoc --proto_path=./ --cpp_out=./cpp/ person.proto
 ```
 
 *C#*
@@ -137,6 +137,8 @@ $ protoc --proto_path=./ --python_out=./python/ person.proto
 ```
 $ protoc --proto_path=./ --ruby_out=./ruby/ person.proto
 ```
+
+Todos los archivos utilizados estan disponibles en este repositorio para que los puedan verificar.
 
 
 ## Referencias
