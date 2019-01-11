@@ -105,37 +105,37 @@ $ protoc --proto_path=./ --cpp_out=./java/ person.proto
 
 *C#*
 ```
-$ protoc --proto_path=./ `--csharp_out`=./csharp/ person.proto
+$ protoc --proto_path=./ --csharp_out=./csharp/ person.proto
 ```
 
 *Java*
 ```
-$ protoc --proto_path=./ `--java_out`=./java/ person.proto
+$ protoc --proto_path=./ --java_out=./java/ person.proto
 ```
 
 *Javascript*
 ```
-$ protoc --proto_path=./ `--js_out`=./javascript/ person.proto
+$ protoc --proto_path=./ --js_out=./javascript/ person.proto
 ```
 
 *Objective-C*
 ```
-$ protoc --proto_path=./ `--objc_out`=./objectivec/ person.proto
+$ protoc --proto_path=./ --objc_out=./objectivec/ person.proto
 ```
 
 *PHP*
 ```
-$ protoc --proto_path=./ `--php_out`=./php/ person.proto
+$ protoc --proto_path=./ --php_out=./php/ person.proto
 ```
 
 *Python*
 ```
-$ protoc --proto_path=./ `--python_out`=./python/ person.proto
+$ protoc --proto_path=./ --python_out=./python/ person.proto
 ```
 
 *Ruby*
 ```
-$ protoc --proto_path=./ `--ruby_out`=./ruby/ person.proto
+$ protoc --proto_path=./ --ruby_out=./ruby/ person.proto
 ```
 
 
