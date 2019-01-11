@@ -51,6 +51,43 @@ libprotoc 3.6.1
 ```
 
 
+Generando el archivo .proto
+---------------------------
+
+Este archivo nos ayudará a colocar la estructura de la información que queremos serializar escrito en archivos con extención <b>.proto</b>. 
+
+Para servir de guía utilizaré el ejemplo que utiliza la [página oficial](https://developers.google.com/protocol-buffers/docs/overview#how-do-they-work) donde se colocan diferentes tipos de situaciones que se nos pueden presentar. 
+
+```
+syntax = "proto3";
+
+message Person {
+  string name = 1;
+  int32 id = 2;
+  string email = 3;
+
+  enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+  }
+
+  message PhoneNumber {
+    string number = 1;
+    PhoneType type = 2;
+  }
+
+  repeated PhoneNumber phone = 4;
+}
+```
+
+Este archivo llamado person.proto contiene la infomarción de un perfil que podría tener un sistema:
+*Un nombre.
+*Un id.
+*Un email.
+*Una lista de números telefónicos con una estructura específica y una lista de tipos que pueden tener.
+
+
 Referencias
 -----------
 
