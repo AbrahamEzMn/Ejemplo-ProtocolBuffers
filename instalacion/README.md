@@ -82,10 +82,10 @@ message Person {
 ```
 
 Este archivo llamado person.proto contiene la infomarción de un perfil que podría tener un sistema:
-*Un nombre.
-*Un id.
-*Un email.
-*Una lista de números telefónicos con una estructura específica y una lista de tipos que pueden tener.
+* Un nombre.
+* Un id.
+* Un email.
+* Una lista de números telefónicos con una estructura específica y una lista de tipos que pueden tener.
 
 
 Referencias
