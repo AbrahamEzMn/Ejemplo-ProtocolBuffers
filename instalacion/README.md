@@ -1,11 +1,10 @@
-# Protocol Buffers - Instalación y ejecución de Protobuf
+# Protocol Buffers - Instalación y ejecución de protoc
 
 Versión
--------
-Os: Ubuntu 18.04.1 LTS
-Cpu: Intel(R) Core(TM) i3-3120M @ 2.50GHz
-Protobuf: libprotoc 3.6.1
-Sintaxis: Proto3
+* Os: Ubuntu 18.04.1 LTS
+* Cpu: Intel(R) Core(TM) i3-3120M @ 2.50GHz
+* Protobuf: libprotoc 3.6.1
+* Sintaxis: Proto3
 
 
 ## Instalando protoc
@@ -48,7 +47,7 @@ libprotoc 3.6.1
 ```
 
 
-##Generando el archivo .proto
+## Generando el archivo .proto
 
 Este archivo nos ayudará a colocar la estructura de la información que queremos serializar escrito en archivos con extención `.proto`. 
 
@@ -104,10 +103,43 @@ Explicación
 $ protoc --proto_path=./ --cpp_out=./java/ person.proto
 ```
 
+*C#*
+```
+$ protoc --proto_path=./ `--csharp_out`=./csharp/ person.proto
+```
+
+*Java*
+```
+$ protoc --proto_path=./ `--java_out`=./java/ person.proto
+```
+
+*Javascript*
+```
+$ protoc --proto_path=./ `--js_out`=./javascript/ person.proto
+```
+
+*Objective-C*
+```
+$ protoc --proto_path=./ `--objc_out`=./objectivec/ person.proto
+```
+
+*PHP*
+```
+$ protoc --proto_path=./ `--php_out`=./php/ person.proto
+```
+
+*Python*
+```
+$ protoc --proto_path=./ `--python_out`=./python/ person.proto
+```
+
+*Ruby*
+```
+$ protoc --proto_path=./ `--ruby_out`=./ruby/ person.proto
+```
 
 
-Referencias
------------
+## Referencias
 
 https://developers.google.com/protocol-buffers/
 
