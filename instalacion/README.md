@@ -1,4 +1,4 @@
-#Protocol Buffers - Instalación y ejecución de Protobuf
+# Protocol Buffers - Instalación y ejecución de Protobuf
 
 Versión
 -------
@@ -8,7 +8,7 @@ Protobuf: libprotoc 3.6.1
 Sintaxis: Proto3
 
 
-##Instalando protoc
+## Instalando protoc
 
 Esta guía describe los pasos para instalar ejecutar <b>protoc</b> y generar algunos Messages en la versión de [proto3](https://developers.google.com/protocol-buffers/docs/proto3).
 
@@ -84,7 +84,7 @@ Este archivo llamado person.proto contiene la infomarción de un perfil que podr
 * Una lista de números telefónicos con una estructura específica y una lista de tipos que pueden tener.
 
 
-##Crear las clases a partir del archivo .proto 
+## Crear las clases a partir del archivo .proto 
 
 
 Para esto necesitaremos el comando `protoc` que previamente mencione, como ejemplo crearemos el proto en `java` con el siguiente comando
@@ -98,10 +98,10 @@ Explicación
 * `person.proto`: Nombre del archivo proto que se va a tomar para generar las clases. Tambien es valido colocar `*.proto` para espeficiar que todos los archivos con terminación .proto se tomen en cuenta para generar las clases.
 
 
-###Comandos de ejemplos para generar archivos en diferentes lenguajes.
+### Comandos de ejemplos para generar archivos en diferentes lenguajes.
 *C++*
 ```
-$ protoc --proto_path=./ `--cpp_out`=./java/ person.proto
+$ protoc --proto_path=./ --cpp_out=./java/ person.proto
 ```
 
 
