@@ -70,12 +70,22 @@ message Person {
 
 El siguiente paso es crear una carpeta donde ubicaremos las clases llamada `messages`, la clase en Javascript la generaremos  con el comando `protoc` especificando que la clase debe ser *comun* para que se adapte a cualquier proyecto:
 ```
-$ protoc -I=./  --js_out=import_style=commonjs,binary:./messages person.proto
+$ protoc --proto_path=./  --js_out=import_style=commonjs,binary:./messages person.proto
 ```
 
 Despues de ejecutarlo nos debe generar un archivo llamado `person_pb.js`
 
+## Usando los menssages en el servidor
 
+Lo primero que debemos hacer es importar la libreria de protoc y la clase generada, eso lo haremos con agregando las  siguientes lineas a nuestro archivo app.js.
+```javascript
+...
+
+require("google-protobuf");
+require('./messages/person_pb')
+
+...
+```
 
 
 

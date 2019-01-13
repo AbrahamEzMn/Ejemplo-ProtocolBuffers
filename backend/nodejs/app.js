@@ -1,5 +1,8 @@
 const http = require('http');
 
+require("google-protobuf");
+require('./messages/person_pb')
+
 const hostname = '127.0.0.1';
 const port = 3000;
 
