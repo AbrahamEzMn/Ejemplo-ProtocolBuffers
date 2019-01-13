@@ -66,6 +66,16 @@ message Person {
 }
 ```
 
+### Crear la clase de Javascript
+
+El siguiente paso es crear una carpeta donde ubicaremos las clases llamada `messages`, la clase en Javascript la generaremos  con el comando `protoc` especificando que la clase debe ser *comun* para que se adapte a cualquier proyecto:
+```
+$ protoc -I=./  --js_out=import_style=commonjs,binary:./messages person.proto
+```
+
+Despues de ejecutarlo nos debe generar un archivo llamado `person_pb.js`
+
+
 
 
 
