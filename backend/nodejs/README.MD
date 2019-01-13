@@ -37,7 +37,37 @@ server.listen(port, hostname, () => {
 Instalamos la libreria `google-protobuf` de manera local por medio del siguiente comando:
 ```
 $ npm install -d google-protobuf
-``` 
+```
+
+## Creando el esquema de prueba
+
+Creamos un archivo llamado `person.proto` que usaremos de prueba con la siguiente estructura:
+
+```
+syntax = "proto3";
+
+message Person {
+  string name = 1;
+  int32 id = 2;
+  string email = 3;
+
+  enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+  }
+
+  message PhoneNumber {
+    string number = 1;
+    PhoneType type = 2;
+  }
+
+  repeated PhoneNumber phone = 4;
+}
+```
+
+
+
 
 ## Referencias
 
