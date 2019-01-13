@@ -1,0 +1,11 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "Versión * Os: Ubuntu 18.04.1 LTS * Cpu: Intel(R) Core(TM) i3-3120M @ 2.50GHz * Protobuf: libprotoc 3.6.1 * Sintaxis: Proto3",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

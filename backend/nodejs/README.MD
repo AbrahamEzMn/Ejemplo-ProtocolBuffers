@@ -6,5 +6,33 @@ Versión
 * Protobuf: libprotoc 3.6.1
 * Sintaxis: Proto3
 
-## Integración de Protocol Buffers en un proyecto ya existente
-  
+## Creación de proyecto de prueba
+
+Iniciamos el proyecto con el `npm`:
+```
+$ npm init
+```
+
+Creamos la base de un servidor que nos servirá de prueba llamado `app.js`: 
+
+```javascript
+const http = require('http');
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World\n');
+});
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
+```
+
+
+## Referencias
+
+[https://nodejs.org/en/docs/guides/getting-started-guide/](https://nodejs.org/en/docs/guides/getting-started-guide/)
