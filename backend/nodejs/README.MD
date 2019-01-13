@@ -32,6 +32,12 @@ server.listen(port, hostname, () => {
 });
 ```
 
+## Agregando las libreria
+
+Instalamos la libreria `google-protobuf` de manera local por medio del siguiente comando:
+```
+$ npm install -d google-protobuf
+``` 
 
 ## Referencias
 
