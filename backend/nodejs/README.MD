@@ -77,16 +77,27 @@ Despues de ejecutarlo nos debe generar un archivo llamado `person_pb.js`
 
 ## Usando los menssages en el servidor
 
-Lo primero que debemos hacer es importar la libreria de protoc y la clase generada, eso lo haremos con agregando las  siguientes lineas a nuestro archivo app.js.
+Lo primero que debemos hacer es importar la libreria de protobuf y la clase generada, eso lo haremos con agregando las  siguientes lineas a nuestro archivo `app.js`.
 ```javascript
 ...
 
-require("google-protobuf");
-require('./messages/person_pb')
+require('google-protobuf');
+require('./messages/person_pb');
 
 ...
 ```
 
+Para crear una instacia de nuestro menssage `Person` lo podremos hacer con la siguiente linea:
+```javascript
+const person = new proto.Person();
+```
+
+Y para asignarle los valores los podremos hacer a travez de sus métodos Setters
+```javascript
+person.setName("Nombre1");
+person.setEmail("correo@electronico.com");
+person.getPhoneList().push( new proto.Person.PhoneNumber(["449 123 45 67", proto.Person.PhoneType.HOME]))
+```
 
 
 ## Referencias
