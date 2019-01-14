@@ -99,6 +99,10 @@ person.setEmail("correo@electronico.com");
 person.getPhoneList().push( new proto.Person.PhoneNumber(["449 123 45 67", proto.Person.PhoneType.HOME]))
 ```
 
+Para poder visualizar la información la persona lo podremos hacer por medio de la consola, agregando la siguiente linea al método `server.listen` de nuestro servidor:
+```javascript
+console.log(person.toObject());
+```
 
 ## Referencias
 
