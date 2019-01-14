@@ -104,6 +104,21 @@ Para poder visualizar la información la persona lo podremos hacer por medio de 
 console.log(person.toObject());
 ```
 
+Al ejecutar el comando 
+```
+$ node app.js
+```
+
+Nos debe mostrar el siguiente texto en la consola
+```
+Server running at http://127.0.0.1:3000/
+{ name: 'Nombre1',
+  id: 0,
+  email: 'correo@electronico.com',
+  phoneList: [ { number: '449 123 45 67', type: 1 } ] }
+```
+
+
 ## Referencias
 
 [https://nodejs.org/en/docs/guides/getting-started-guide/](https://nodejs.org/en/docs/guides/getting-started-guide/)
