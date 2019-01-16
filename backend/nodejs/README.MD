@@ -6,9 +6,9 @@ Versión
 * Protobuf: libprotoc 3.6.1
 * Sintaxis: Proto3
 
-## Creación de proyecto de prueba
+## Agregando las libreria
 
-Iniciamos el proyecto con el `npm`:
+Para este proyecto usaremos el administrador de paquetes `npm` y lo iniciamos con el siguiente comando:
 ```
 $ npm init
 ```
@@ -16,23 +16,9 @@ $ npm init
 Creamos la base de un servidor que nos servirá de prueba llamado `app.js`: 
 
 ```javascript
-const http = require('http');
 
-const hostname = '127.0.0.1';
-const port = 3000;
-
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
 });
 ```
-
-## Agregando las libreria
 
 Instalamos la libreria `google-protobuf` de manera local por medio del siguiente comando:
 ```
@@ -122,3 +108,5 @@ Server running at http://127.0.0.1:3000/
 ## Referencias
 
 [https://nodejs.org/en/docs/guides/getting-started-guide/](https://nodejs.org/en/docs/guides/getting-started-guide/)
+
+[https://expressjs.com/es/starter/hello-world.html](https://expressjs.com/es/starter/hello-world.html)
