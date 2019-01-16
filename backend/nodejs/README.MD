@@ -63,21 +63,11 @@ Para este ejmplo usaremos la libreria de `express` y lo instalaremos con:
 $ npm install -d express
 ```
 
-Creamos la base de un servidor basico que nos servirá de prueba llamado `server.js`, para este usaremos la libreia de `express`: 
-
+Ahora crearemos la base de un servidor basico que nos servirá de prueba llamado `server.js`,  y lo primero que debemos hacer es importar la libreria de  `express`, `google-protobuf` y el message generado `person`, eso lo haremos con agregando las  siguientes lineas a nuestro archivo `app.js`.
 ```javascript
-
-
-```
-
-Lo primero que debemos hacer es importar la libreria de protobuf y la clase generada, eso lo haremos con agregando las  siguientes lineas a nuestro archivo `app.js`.
-```javascript
-...
-
+var express = require('express');
 require('google-protobuf');
 require('./messages/person_pb');
-
-...
 ```
 
 Para crear una instacia de nuestro menssage `Person` lo podremos hacer con la siguiente linea:
