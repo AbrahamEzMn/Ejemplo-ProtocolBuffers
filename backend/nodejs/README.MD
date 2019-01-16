@@ -63,7 +63,7 @@ Para este ejemplo usaremos la libreria de `express` y lo instalaremos con:
 $ npm install -d express
 ```
 
-Ahora crearemos la base de un servidor basico que nos servirá de prueba llamado `server.js`,  y lo primero que debemos hacer es importar la librerias de `express`, `body-parser`,`google-protobuf` y el message generado `person`, eso lo haremos con agregando las siguientes lineas a nuestro archivo `app.js`.
+Ahora crearemos la base de un servidor basico que nos servirá de prueba llamado `server.js`,  y lo primero que debemos hacer es importar la librerias de `express`, `body-parser`,`google-protobuf` y el message generado `person`, eso lo haremos con agregando las siguientes lineas:
 ```javascript
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -71,7 +71,7 @@ require('google-protobuf');
 require('./messages/person_pb');
 ```
 
-Despues crearemos una variable de la aplicacion de `express` y usaremos el `bodyParser` especicando que para las peticiones con un `content-type` de `application/x-protobuf` se queden como datos puros:
+Despues crearemos una variable de la aplicacion de `express` y usaremos el `bodyParser` especificando que para las peticiones con un `content-type` de `application/x-protobuf` se queden como datos puros:
 ```javascript
 var app = express();
 app.use(bodyParser.raw({type: 'application/x-protobuf'}))
@@ -84,16 +84,34 @@ app.listen(3000, function () {
 });
 ```
 
-Para crear una instacia de nuestro menssage `Person` lo podremos hacer con la siguiente linea:
-```javascript
-const person = new proto.Person();
-```
+### Enviando el message serializado 
 
-Y para asignarle los valores los podremos hacer a travez de sus métodos Setters
+El primer método en realizar sera un ejemplo de una petición tipo `get`, en él enviaremos la información de  un usuario
 ```javascript
-person.setName("Nombre1");
-person.setEmail("correo@electronico.com");
-person.getPhoneList().push( new proto.Person.PhoneNumber(["449 123 45 67", proto.Person.PhoneType.HOME]))
+
+/**
+ * Método get
+ * 
+ * @url http://localhost:3000/message
+ */
+app.get('/message', function (req, res) {
+
+    // Creamos el message
+    const person = new proto.Person();
+    person.setName("Nombre 1");
+    person.setEmail("correo@electronico.com");
+    person.setId(1);
+    person.getPhoneList().push( new proto.Person.PhoneNumber(["123 456 78 90", proto.Person.PhoneType.HOME]));
+
+    // Especificamos que la peticion llevará un protobuf como tipo de contenido
+    res.contentType('application/x-protobuf');
+
+    // Creamos un buffer para enviar el message serializado.
+    var buffer = new Buffer(person.serializeBinary());
+
+    // Lanzamos el response
+    res.send(buffer);
+});
 ```
 
 Para poder visualizar la información la persona lo podremos hacer por medio de la consola, agregando la siguiente linea al método `server.listen` de nuestro servidor:
@@ -103,7 +121,7 @@ console.log(person.toObject());
 
 Al ejecutar el comando 
 ```
-$ node app.js
+$ node server.js
 ```
 
 Nos debe mostrar el siguiente texto en la consola
