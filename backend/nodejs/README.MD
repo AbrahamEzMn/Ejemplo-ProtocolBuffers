@@ -142,6 +142,7 @@ $ node server.js
 
 ## Referencias
 
+[https://developers.google.com/protocol-buffers/docs/reference/javascript-generated](https://developers.google.com/protocol-buffers/docs/reference/javascript-generated)
+[https://github.com/protocolbuffers/protobuf/tree/master/js](https://github.com/protocolbuffers/protobuf/tree/master/js)
 [https://nodejs.org/en/docs/guides/getting-started-guide/](https://nodejs.org/en/docs/guides/getting-started-guide/)
-
 [https://expressjs.com/es/starter/hello-world.html](https://expressjs.com/es/starter/hello-world.html)
