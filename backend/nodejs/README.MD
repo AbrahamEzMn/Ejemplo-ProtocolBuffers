@@ -58,7 +58,7 @@ Despues de ejecutarlo nos debe generar un archivo llamado `person_pb.js`
 
 ## Usando los menssages en el servidor
 
-Para este ejmplo usaremos la libreria de `express` y lo instalaremos con:
+Para este ejemplo usaremos la libreria de `express` y lo instalaremos con:
 ```
 $ npm install -d express
 ```
@@ -69,6 +69,19 @@ var express = require('express');
 var bodyParser = require('body-parser');
 require('google-protobuf');
 require('./messages/person_pb');
+```
+
+Despues crearemos una variable de la aplicacion de `express` y usaremos el `bodyParser` especicando que para las peticiones con un `content-type` de `application/x-protobuf` se queden como datos puros:
+```javascript
+var app = express();
+app.use(bodyParser.raw({type: 'application/x-protobuf'}))
+```
+
+Creamos el método para lanzar el servidor en el puerto `3000`:
+```javascript
+app.listen(3000, function () {
+    console.log('Example app listening on port 3000!');
+});
 ```
 
 Para crear una instacia de nuestro menssage `Person` lo podremos hacer con la siguiente linea:

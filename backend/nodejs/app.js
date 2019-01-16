@@ -11,7 +11,7 @@ const port = 3000;
 const person = new proto.Person();
 
 // Asignación de valores
-person.setName("Nombre1");
+person.setName("Nombre");
 person.setEmail("correo@electronico.com");
 person.getPhoneList().push( new proto.Person.PhoneNumber(["449 123 45 67", proto.Person.PhoneType.HOME]))
 
