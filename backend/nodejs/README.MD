@@ -47,7 +47,7 @@ message Person {
 }
 ```
 
-### Crear la clase de Javascript
+### Crear el message en Javascript
 
 El siguiente paso es crear una carpeta donde ubicaremos las clases llamada `messages`, la clase en Javascript la generaremos  con el comando `protoc` especificando que la clase debe ser *comun* para que se adapte a cualquier proyecto:
 ```
@@ -56,7 +56,7 @@ $ protoc --proto_path=./  --js_out=import_style=commonjs,binary:./messages perso
 
 Despues de ejecutarlo nos debe generar un archivo llamado `person_pb.js`
 
-## Usando los menssages en el servidor
+## Usando los messages en el servidor
 
 Para este ejemplo usaremos la libreria de `express` y lo instalaremos con:
 ```
@@ -88,7 +88,6 @@ app.listen(3000, function () {
 
 El primer método en realizar sera un ejemplo de una petición tipo `get`, en él enviaremos la información de  un usuario:
 ```javascript
-
 /**
  * Método get
  *
@@ -136,20 +135,10 @@ app.post('/message', function (req, res, next) {
 });
 ``` 
 
-Al ejecutar el comando 
+Podremos lanzar el servidor con el siguiente comando:
 ```
 $ node server.js
 ```
-
-Nos debe mostrar el siguiente texto en la consola
-```
-Server running at http://127.0.0.1:3000/
-{ name: 'Nombre1',
-  id: 0,
-  email: 'correo@electronico.com',
-  phoneList: [ { number: '449 123 45 67', type: 1 } ] }
-```
-
 
 ## Referencias
 
