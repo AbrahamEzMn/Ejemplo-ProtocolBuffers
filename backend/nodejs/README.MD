@@ -13,12 +13,7 @@ Para este proyecto usaremos el administrador de paquetes `npm` y lo iniciamos co
 $ npm init
 ```
 
-Creamos la base de un servidor que nos servirá de prueba llamado `app.js`: 
 
-```javascript
-
-});
-```
 
 Instalamos la libreria `google-protobuf` de manera local por medio del siguiente comando:
 ```
@@ -62,6 +57,13 @@ $ protoc --proto_path=./  --js_out=import_style=commonjs,binary:./messages perso
 Despues de ejecutarlo nos debe generar un archivo llamado `person_pb.js`
 
 ## Usando los menssages en el servidor
+
+Creamos la base de un servidor que nos servirá de prueba llamado `app.js`: 
+
+```javascript
+
+});
+```
 
 Lo primero que debemos hacer es importar la libreria de protobuf y la clase generada, eso lo haremos con agregando las  siguientes lineas a nuestro archivo `app.js`.
 ```javascript
