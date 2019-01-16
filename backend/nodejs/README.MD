@@ -114,7 +114,7 @@ app.get('/message', function (req, res) {
 });
 ```
 
-### Resiviendo el message serializado
+### Recibiendo el message serializado
 
 El otro método a crear sera uno tipo `post`, en él veremos como se decodifica los datos serializados y regresaremos el nombre de la persona para verificar el correcto funcionamiento:
 ```javascript
