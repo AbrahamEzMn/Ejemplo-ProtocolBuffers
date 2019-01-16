@@ -86,12 +86,12 @@ app.listen(3000, function () {
 
 ### Enviando el message serializado 
 
-El primer método en realizar sera un ejemplo de una petición tipo `get`, en él enviaremos la información de  un usuario
+El primer método en realizar sera un ejemplo de una petición tipo `get`, en él enviaremos la información de  un usuario:
 ```javascript
 
 /**
  * Método get
- * 
+ *
  * @url http://localhost:3000/message
  */
 app.get('/message', function (req, res) {
@@ -114,10 +114,27 @@ app.get('/message', function (req, res) {
 });
 ```
 
-Para poder visualizar la información la persona lo podremos hacer por medio de la consola, agregando la siguiente linea al método `server.listen` de nuestro servidor:
+### Resiviendo el message serializado
+
+El otro método a crear sera uno tipo `post`, en él veremos como se decodifica los datos serializados y regresaremos el nombre de la persona para verificar el correcto funcionamiento:
 ```javascript
-console.log(person.toObject());
-```
+/**
+ * Método de ejemplo.
+ * 
+ * @url http://localhost:3000/message
+ */
+app.post('/message', function (req, res, next) {
+
+    //Creamos la persona a partir de la descerizalacion de los datos enviados en el body.
+    const person = proto.Person.deserializeBinary(req.body);
+
+    // Visualizamos la persona.
+    console.log(person.toObject())
+
+    // Rergesamos el nombre de la persona al cliente.
+    res.send(person.getName());
+});
+``` 
 
 Al ejecutar el comando 
 ```

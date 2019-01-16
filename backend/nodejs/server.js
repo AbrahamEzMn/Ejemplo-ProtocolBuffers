@@ -37,3 +37,20 @@ app.get('/message', function (req, res) {
     // Lanzamos el response
     res.send(buffer);
 });
+
+/**
+ * Método de ejemplo.
+ * 
+ * @url http://localhost:3000/message
+ */
+app.post('/message', function (req, res, next) {
+    
+    //Creamos la persona a partir de la descerizalacion de los datos enviados en el body.
+    const person = proto.Person.deserializeBinary(req.body);
+
+    // Visualizamos la persona.
+    console.log(person.toObject())
+
+    // Rergesamos el nombre de la persona al cliente.
+    res.send(person.getName());
+});
