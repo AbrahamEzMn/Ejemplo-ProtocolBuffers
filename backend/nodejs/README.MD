@@ -170,6 +170,26 @@ request('http://127.0.0.1:3000/message', function (error, response, body) {
 });
 ```
 
+### Resultado
+Habiendo previamente lanzado el archivo `server.js` ejecutamos el archivo `server_test.js` con el siguiente comando:
+```
+$ node server_test.js
+``` 
+
+Y nos debe mostrar el siguiente resultado:
+```
+test get http://127.0.0.1:3000/message
+error: null
+statusCode: 200
+body: 
+Nombre 1correo@electronico.com"
+123 456 78 90
+persona: { name: 'Nombre 1',
+  id: 1,
+  email: 'correo@electronico.com',
+  phoneList: [ { number: '123 456 78 90', type: 1 } ] }
+
+```
 
 ## Referencias
 
