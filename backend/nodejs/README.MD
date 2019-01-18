@@ -150,7 +150,7 @@ $ npm install -D request
 Y luego crearemos un archivo llamado `server_test.js`  e importaremos la libreria `request`, `google-protobuf` y `person_pb` por medio de las siguientes lineas:
 ```javascript
 var express = require('express');
-var bodyParser = require('body-parser');
+
 require('google-protobuf');
 require('./messages/person_pb');
 ``` 
