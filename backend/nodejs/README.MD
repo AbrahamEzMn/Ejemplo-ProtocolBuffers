@@ -149,11 +149,27 @@ $ npm install -D request
 
 Y luego crearemos un archivo llamado `server_test.js`  e importaremos la libreria `request`, `google-protobuf` y `person_pb` por medio de las siguientes lineas:
 ```javascript
-var express = require('express');
+var request = require('request');
 
 require('google-protobuf');
 require('./messages/person_pb');
 ``` 
+
+El primer método a testear sera el método `GET`, en él recibiremos una persona y mostraremos por completo todos los valores en consola con el siguiente código:
+```javascript
+request('http://127.0.0.1:3000/message', function (error, response, body) {
+
+    console.log('test get http://127.0.0.1:3000/message');
+
+    console.log('error:', error);
+    console.log('statusCode:', response && response.statusCode);
+    console.log('body:', body);
+
+    const person = proto.Person.deserializeBinary(new Buffer(body));
+    console.log('persona:', person.toObject());
+});
+```
+
 
 ## Referencias
 
