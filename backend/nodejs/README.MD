@@ -154,7 +154,7 @@ var request = require('request');
 require('google-protobuf');
 require('./messages/person_pb');
 ``` 
-
+### Probando el método GET
 El primer método a testear sera el método `GET`, en él recibiremos una persona y mostraremos por completo todos los valores en consola con el siguiente código:
 ```javascript
 request('http://127.0.0.1:3000/message', function (error, response, body) {
@@ -170,7 +170,7 @@ request('http://127.0.0.1:3000/message', function (error, response, body) {
 });
 ```
 
-### Resultado
+#### Resultado
 Habiendo previamente lanzado el archivo `server.js` ejecutamos el archivo `server_test.js` con el siguiente comando:
 ```
 $ node server_test.js
@@ -188,6 +188,54 @@ persona: { name: 'Nombre 1',
   id: 1,
   email: 'correo@electronico.com',
   phoneList: [ { number: '123 456 78 90', type: 1 } ] }
+
+```
+
+### Probando el método POST
+
+El siguiente método a testear es el `POST`, en él enviaremos a una persona y obtendremos el nombre que de ella por medio de las siguientes lineas a nuestro archivo `server_test.js`:
+```javascript
+// Creación de la instancia del message
+const person = new proto.Person();
+
+// Asignación de valores
+person.setName("Nombre 2");
+person.setEmail("correo2@electronico2.com");
+person.getPhoneList().push( new proto.Person.PhoneNumber(["449 123 45 67", proto.Person.PhoneType.HOME]))
+
+request.post({
+  headers:  {'content-type': 'application/x-protobuf'},
+  url:     'http://127.0.0.1:3000/message',
+  body:    person.serializeBinary()
+}, function(error, response, body){
+  console.log('\n\rtest post http://127.0.0.1:3000/message');
+
+  console.log('error:', error);
+  console.log('statusCode:', response && response.statusCode);
+  console.log('body:', body);
+});
+```
+
+#### Resultado
+Igual que el método anterior, habiendo previamente lanzado el archivo `server.js` ejecutamos el archivo `server_test.js` con el siguiente comando:
+```
+$ node server_test.js
+``` 
+
+Y nos debe mostrar el siguiente resultado:
+```
+test post http://127.0.0.1:3000/message
+error: null
+statusCode: 200
+body: Nombre 2
+```
+Mientras que del lado del servidor nos mostrará esto:
+```
+Example app listening on port 3000!
+{ name: 'Nombre 2',
+  id: 0,
+  email: 'correo2@electronico2.com',
+  phoneList: [ { number: '449 123 45 67', type: 1 } ] }
 
 ```
 
