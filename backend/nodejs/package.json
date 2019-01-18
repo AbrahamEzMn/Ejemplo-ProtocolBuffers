@@ -11,5 +11,8 @@
   "dependencies": {
     "express": "^4.16.4",
     "google-protobuf": "^3.6.1"
+  },
+  "devDependencies": {
+    "request": "^2.88.0"
   }
 }

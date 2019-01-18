@@ -140,6 +140,14 @@ Podremos lanzar el servidor con el siguiente comando:
 $ node server.js
 ```
 
+## Haciendo el archivo de prueba.
+
+Para probar nuestro servidor utilizaremos la libreria de `request`, la instalaremos por medio del siguiente comando:
+```
+$ npm install -D request
+``` 
+
+
 ## Referencias
 
 [https://developers.google.com/protocol-buffers/docs/reference/javascript-generated](https://developers.google.com/protocol-buffers/docs/reference/javascript-generated)<br />
