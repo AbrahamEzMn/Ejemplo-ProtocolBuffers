@@ -31,10 +31,10 @@ Instalamos el plugin de `protoc` para `go` con el siguiente comando:
 $ go get github.com/golang/protobuf/protoc-gen-go
 ```
 
-## Creando el message
+## Creando los message
 En la carpeta de `messages` generaremos tres archivos con los siguientes datos:
 
-El archivo llamado `person.proto` que contendrá la clase Persona donde especificaremos los datos que va a tener, así como del nombre del paquete.
+El archivo llamado `person.proto` que contendrá la clase Persona, donde especificaremos los datos que va a tener así como del nombre del paquete.
 ```
 syntax = "proto3";
 import "phoneNumber.proto";
@@ -73,14 +73,17 @@ enum PhoneType {
 }
 ```
 
+Tras generar aquellos archivos lo siguiente sera los messages en el lenguaje de `go`, eso lo haremos con el siguiente comando usando `protoc`.
 ```
 $ protoc --proto_path=./messages/ --go_out=./src/proto/messages ./messages/*.proto
 ```
+
+Tras esto nos deberá generar una carpeta `messages`  con tres archivos con extension `.pd.go` en la carpeta de `src/proto`.
+
 
 ## Referencias
 
 [https://golang.org/doc/code.html](https://golang.org/doc/code.html)<br />
 [https://github.com/golang/protobuf/](https://github.com/golang/protobuf/)<br />
-[https://developers.google.com/protocol-buffers/docs/reference/go-generated]
-(https://developers.google.com/protocol-buffers/docs/reference/go-generated)<br />
+https://developers.google.com/protocol-buffers/docs/reference/go-generated<br />
 [http://dlintw.github.io/gobyexample/public/http-client.html](http://dlintw.github.io/gobyexample/public/http-client.html)
