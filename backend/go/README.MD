@@ -12,6 +12,22 @@ Versión
 El primer paso es crear con la siguiente estructura:
 ```
 Go
- ├-bin
- └-src
+ ├─bin
+ └─src
 ```
+
+Y exportamos la variable `GOPATH` con el siguiente comando:
+```
+$ export GOPATH=UBICACION_DEL-PROYECTO
+```
+
+Instalamos el plugin de `protoc` para `go` con el siguiente comando:
+```
+$ go get github.com/golang/protobuf/protoc-gen-go
+```
+
+
+## Referencias
+
+[https://golang.org/doc/code.html](https://golang.org/doc/code.html)
+[https://developers.google.com/protocol-buffers/docs/reference/go-generated](https://developers.google.com/protocol-buffers/docs/reference/go-generated)
