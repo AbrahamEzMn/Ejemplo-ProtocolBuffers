@@ -1,0 +1,11 @@
+syntax = "proto3";
+import "phoneNumber.proto";
+package messages;
+option go_package = "";
+
+message Person {
+  string name = 1;
+  int32 id = 2;
+  string email = 3;
+  repeated PhoneNumber phone = 4;
+}

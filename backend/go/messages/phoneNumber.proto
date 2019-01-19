@@ -1,0 +1,11 @@
+syntax = "proto3";
+import "phoneType.proto";
+package messages;
+option go_package = "";
+
+
+message PhoneNumber {
+    string number = 1;
+    PhoneType type = 2;
+}
+
