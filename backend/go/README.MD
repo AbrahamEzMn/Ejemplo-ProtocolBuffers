@@ -121,6 +121,70 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
+Despues crearemos la función `enviarPersona` como la siguiente
+```go
+//Método para enviar los datos serializados de una persona
+func enviarPersona(w http.ResponseWriter){
+
+    //Creamos la persona
+    person := &messages.Person{
+        //Le asignamos un nombre
+        Name: "Nombre1",
+        //Un ID
+        Id: 1,
+        //Un correo electrónico
+        Email: "correo@electronico.com",
+        //La lista de teléfonos
+        Phone: []*messages.PhoneNumber{ 
+            //Teléfono de casa
+            &messages.PhoneNumber {
+                Number: "123 456 78 90",
+                Type: messages.PhoneType_HOME,
+            },
+        },
+    }
+
+    // Mostramos los datos de la persona
+    log.Print(person.String())
+
+    // Serializamos los datos de la persona
+    data, err := proto.Marshal(person)
+    if err != nil {
+        log.Fatal("marshaling error: ", err)
+    }
+
+    //Enviamos los datos de la persona a través de la respuesta
+    w.Write(data)
+}
+```
+
+Y para el método `recibirPersona`  seria el siguiente
+```go
+// Método para decodificar a las personas que envian
+func recibirPersona(w http.ResponseWriter, r *http.Request) {
+    // Creamos una instancia de la persona
+    newPerson := &messages.Person{}
+
+    // Leemos el body y lo transformamos a un arreglo de bytes
+    bodyInBytes, _ := ioutil.ReadAll(r.Body)
+    err := proto.Unmarshal(bodyInBytes, newPerson)
+    if err != nil {
+        log.Fatal("unmarshaling error: ", err)
+    }
+
+    //Mostramos los datos de la persona
+    log.Print(newPerson.String())
+
+    //Enviamos el nombre de la persona como respuesta
+    fmt.Fprintf(w, newPerson.Name )
+}
+```
+
+Para lanzar el servidor necesitaremos el siguiente comando:
+```
+$ go run src/main.go
+```
+
 ## Referencias
 
 [https://golang.org/doc/code.html](https://golang.org/doc/code.html)<br />
