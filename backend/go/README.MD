@@ -80,6 +80,24 @@ $ protoc --proto_path=./messages/ --go_out=./src/proto/messages ./messages/*.pro
 
 Tras esto nos deberá generar una carpeta `messages`  con tres archivos con extension `.pd.go` en la carpeta de `src/proto`.
 
+## Usando los messages
+Para este ejemplo crearemos un servidor en el puerto 3000 donde reciba una petición y dependiendo del tipo enviará o recibirá un `message`.
+
+Este archivo se llamará `main.go` y estará ubicado en la carpeta `src`, lo primero será especificar el paquete e importar todas las librerias que vamos a usar:
+```golang
+package main
+
+import (
+    "log"
+	"net/http"
+	"io/ioutil"
+	"fmt"
+
+	"github.com/golang/protobuf/proto"
+	"proto/messages"
+)
+```
+
 
 ## Referencias
 

@@ -83,4 +83,3 @@ func recibirPersona(w http.ResponseWriter, r *http.Request) {
 	//Enviamos el nombre de la persona como respuesta
 	fmt.Fprintf(w, newPerson.Name )
 }
-
