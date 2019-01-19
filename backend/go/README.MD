@@ -84,20 +84,42 @@ Tras esto nos deberá generar una carpeta `messages`  con tres archivos con exte
 Para este ejemplo crearemos un servidor en el puerto 3000 donde reciba una petición y dependiendo del tipo enviará o recibirá un `message`.
 
 Este archivo se llamará `main.go` y estará ubicado en la carpeta `src`, lo primero será especificar el paquete e importar todas las librerias que vamos a usar:
-```golang
+```go
 package main
 
 import (
     "log"
-	"net/http"
-	"io/ioutil"
-	"fmt"
+    "net/http"
+    "io/ioutil"
+    "fmt"
 
-	"github.com/golang/protobuf/proto"
-	"proto/messages"
+    "github.com/golang/protobuf/proto"
+    "proto/messages"
 )
 ```
 
+Ahora crearemos la función principal donde lanzaremos el servidor y otro donde manejaremos las peticiones:
+```go
+// Método principal
+func main() {
+    // Manejaremos la ruta /message con establecido en el método handler
+    http.HandleFunc("/message", handler)
+    // Lanzamos el servidor en el puerto 3000
+    log.Fatal(http.ListenAndServe(":3000", nil))
+}
+
+// Controlador de la petición
+func handler(w http.ResponseWriter, r *http.Request) {
+    // Si nos llega una peticion GET ejecutaremos el método enviarPersona
+    if r.Method == "GET" {
+        enviarPersona(w)
+    }
+    // Si nos llega una peticion POST ejecutaremos el método recibirPersona
+    if r.Method == "POST" { 
+        recibirPersona(w, r)
+    }
+}
+```
 
 ## Referencias
 
