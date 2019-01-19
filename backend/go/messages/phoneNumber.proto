@@ -1,7 +1,6 @@
 syntax = "proto3";
 import "phoneType.proto";
 package messages;
-option go_package = "";
 
 
 message PhoneNumber {
