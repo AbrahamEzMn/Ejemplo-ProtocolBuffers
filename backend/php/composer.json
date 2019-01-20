@@ -6,5 +6,7 @@
             "email": "abraham.esparza.m010@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "google/protobuf":"*"
+    }
 }

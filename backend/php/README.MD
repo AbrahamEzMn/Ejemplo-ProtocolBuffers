@@ -22,7 +22,7 @@ Despues agregaremos la dependencia de el proyecto de `google/protobuf` en el arc
 
 Y entonces instalaremos ejecutamos el siguiente comando para instalar 
 ```
-$ composer require
+$ composer update
 ```
 
 
