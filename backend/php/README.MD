@@ -138,11 +138,49 @@ switch ($method) {
     // En caso de la petición GET ejecutaremos el método llamado get.
     case 'GET':
         echo get();
-        break; 
+        break;
     // En caso de la petición POST ejecutaremos el método llamado post.
     case 'POST':
         echo post();
         break;
+}
+```
+
+### Enviar el message serializado
+
+El método `get` enviará los datos de un usuario serializado de la siguiente forma:
+
+```php
+
+/**
+ * Administra las peticiones tipo GET.
+ * 
+ * @return string Message serializado en bytes guardados en un string.
+ */
+function get(): string {
+
+    // Creamos a la persona a enviar
+    $person = (new Person)
+            // Colocamos un nombre.
+            ->setName("Nombre 1")
+            // Asignamos el correo.
+            ->setEmail("correo@electronico.com")
+            // Creamos la lista de teléfonos.
+            ->setPhone(
+                [
+                    // Creamos un teléfono de casa.
+                    (new PhoneNumber)
+                        ->setNumber("1234561230")
+                        ->setType(PhoneType::HOME),
+                    // Creamos un teléfono de trabajo.
+                    (new PhoneNumber)
+                        ->setNumber("0987654321")
+                        ->setType(PhoneType::WORK)
+                ]
+            );
+
+    // Enviamos la persona serializada.
+    return $person->serializeToString();
 }
 ```
 
