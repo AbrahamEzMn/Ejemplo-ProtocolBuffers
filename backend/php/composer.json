@@ -8,5 +8,11 @@
     ],
     "require": {
         "google/protobuf":"*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Messages\\":"./proto/Messages/",
+            "GPBMetadata\\":"./proto/GPBMetadata/"
+        }
     }
 }

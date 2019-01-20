@@ -74,16 +74,25 @@ enum PhoneType {
 }
 ```
 
-
+Para generar las clases en PHP con protoc usaremos el siguiente comando:
 ```
-"autoload": {
-    "psr-4": {
-        "Messages\\":"./proto/Messages/",
-        "GPBMetadata\\":"./proto/GPBMetadata/"
+$ protoc --proto_path=./messages/ --php_out=./proto/ ./messages/*.proto
+```
+
+Esto nos generará las carpetas `Messages` y `GPBMetadata` dentro de la carpeta `proto`, aqui se encontrarán nuestros esquemas.
+
+El siguiente paso será incluir los archivos generados en esas carpetas dentro de nuestro proyecto, para eso usaremos el archivo `composer.json` y las agregaremos a su (autoload)[https://getcomposer.org/doc/01-basic-usage.md#autoloading], especificando que el namespace de `Messages` se encuentra en la ruta de `./proto/Messages/` y `GPBMetadata` en `./proto/GPBMetadata/`:
+```
+{
+    "autoload": {
+        "psr-4": {
+            "Messages\\":"./proto/Messages/",
+            "GPBMetadata\\":"./proto/GPBMetadata/"
+        }
     }
 }
 ```
-
+Despues volvemos a generar los archivos de autolad con el siguiente comando:
 ```
 $ composer dump-autoload -o
 ```
