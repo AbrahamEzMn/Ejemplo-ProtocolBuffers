@@ -185,6 +185,25 @@ Para lanzar el servidor necesitaremos el siguiente comando:
 $ go run src/main.go
 ```
 
+## Creando el archivo de prueba
+
+Crearemos un archivo llamado `maintest.go`, en él importaremos los paquetes de `log`, `net/log`,`io/ioutil`, `bytes`, `protobuf/proto` y las clases que generamos `proto/messages` :
+```go
+package main
+
+import (
+    "log"
+
+    "net/http"
+    "io/ioutil"
+    "bytes"
+
+    "github.com/golang/protobuf/proto"
+    "proto/messages"
+)
+``` 
+
+
 ## Referencias
 
 [https://golang.org/doc/code.html](https://golang.org/doc/code.html)<br />
