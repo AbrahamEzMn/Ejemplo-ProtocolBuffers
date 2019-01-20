@@ -8,6 +8,14 @@ Versión
 * PHP: 7.2.10
 * Composer: 1.6.5
 
+## Creando las carpetas
+Crearemos las carpetas de `messages` donde guardaremos los esquemas de las clases y otra llamada `proto`, en ella guardaremos los esquemas generados en PHP
+```
+PHP
+ ├─messages
+ └─proto
+```
+
 ## Inicializando el proyecto
 
 Para usar la libreria de `google/protobuf` necesitaremos usar el administrador de dependencias [composer](https://getcomposer.org/download/) y ejecutar el siguiente comando:
@@ -15,14 +23,55 @@ Para usar la libreria de `google/protobuf` necesitaremos usar el administrador d
 $ composer init
 ```
 
-Despues agregaremos la dependencia de el proyecto de `google/protobuf` en el archivo `composer.json` que se generó al terminar de ejecutar el comando `init` y agregaremos la siguiente linea en los corchetes del `require` :
+Despues agregaremos la dependencia de el proyecto de `google/protobuf` en el archivo `composer.json` que se generó al terminar de ejecutar el comando `init` y agregaremos la siguiente linea en los corchetes del `require`:
 ```
 "google/protobuf":"*"
 ```
 
-Y entonces instalaremos ejecutamos el siguiente comando para instalar 
+Y entonces instalaremos la libreria ejecutando el siguiente comando:
 ```
 $ composer update
+```
+
+## Creando los esquemas
+En la carpeta de `messages` generaremos tres archivos con los siguientes datos:
+El archivo llamado `person.proto` que contendrá la clase Persona, donde especificaremos los datos que va a tener así como del nombre del paquete.
+```
+syntax = "proto3";
+import "phoneNumber.proto";
+package messages;
+
+message Person {
+  string name = 1;
+  int32 id = 2;
+  string email = 3;
+  repeated PhoneNumber phone = 4;
+}
+```
+
+Otro archivo llamado `phoneNumber.proto`, en el pondremos el estructura de la clase de Teléfono.
+```
+syntax = "proto3";
+import "phoneType.proto";
+package messages;
+
+
+message PhoneNumber {
+    string number = 1;
+    PhoneType type = 2;
+}
+```
+
+Y por último `phoneType.proto` que solo tendrá los tipos de teléfonos.
+```
+syntax = "proto3";
+package messages;
+
+enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+}
 ```
 
 
