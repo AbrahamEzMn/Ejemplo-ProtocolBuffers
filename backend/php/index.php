@@ -52,3 +52,20 @@ function get(): string {
     // Enviamos la persona serializada.
     return $person->serializeToString();
 }
+
+/**
+ * Administra las peticiones tipo POST.
+ * 
+ * @return string Nombre del usuario enviado en el request serializado en bytes.
+ */
+function post(): string {
+    // Obtenemos el contenido del request.
+    $body = file_get_contents('php://input');
+    // Creamos la persona en donde guardaremos la información.
+    $person = new Person();
+    // Vaciamos los datos de la persona. 
+    $person->mergeFromString($body);
+
+    // Regresamos el nombre del usuario.
+    return $person->getName();
+}

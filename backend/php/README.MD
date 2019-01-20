@@ -184,6 +184,29 @@ function get(): string {
 }
 ```
 
+### Recibiendo um message serializado
+
+Para poder decodificar los messages serilizados usaremos una petición tipo `POST` y como respuesta regresaremos el nombre del usuario:
+
+```php
+/**
+ * Administra las peticiones tipo POST.
+ *
+ * @return string Nombre del usuario enviado en el request serializado en bytes.
+ */
+function post(): string {
+    // Obtenemos el contenido del request.
+    $body = file_get_contents('php://input');
+    // Creamos la persona en donde guardaremos la información.
+    $person = new Person();
+    // Vaciamos los datos de la persona.
+    $person->mergeFromString($body);
+
+    // Regresamos el nombre del usuario.
+    return $person->getName();
+}
+```
+
 ## Referencias
 [https://github.com/protocolbuffers/protobuf/tree/master/php](https://github.com/protocolbuffers/protobuf/tree/master/php)<br />
 [https://developers.google.com/protocol-buffers/docs/reference/php-generated](https://developers.google.com/protocol-buffers/docs/reference/php-generated)<br />
