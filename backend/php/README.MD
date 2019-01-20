@@ -81,7 +81,7 @@ $ protoc --proto_path=./messages/ --php_out=./proto/ ./messages/*.proto
 
 Esto nos generará las carpetas `Messages` y `GPBMetadata` dentro de la carpeta `proto`, aqui se encontrarán nuestros esquemas.
 
-El siguiente paso será incluir los archivos generados en esas carpetas dentro de nuestro proyecto, para eso usaremos el archivo `composer.json` y las agregaremos a su (autoload)[https://getcomposer.org/doc/01-basic-usage.md#autoloading], especificando que el namespace de `Messages` se encuentra en la ruta de `./proto/Messages/` y `GPBMetadata` en `./proto/GPBMetadata/`:
+El siguiente paso será incluir los archivos generados en esas carpetas dentro de nuestro proyecto, para eso usaremos el archivo `composer.json` y las agregaremos a su [autoload](https://getcomposer.org/doc/01-basic-usage.md#autoloading), especificando que el namespace de `Messages` se encuentra en la ruta de `./proto/Messages/` y `GPBMetadata` en `./proto/GPBMetadata/`:
 ```
 {
     "autoload": {
@@ -100,4 +100,5 @@ $ composer dump-autoload -o
 ## Referencias
 [https://github.com/protocolbuffers/protobuf/tree/master/php](https://github.com/protocolbuffers/protobuf/tree/master/php)<br />
 [https://developers.google.com/protocol-buffers/docs/reference/php-generated](https://developers.google.com/protocol-buffers/docs/reference/php-generated)<br />
-(https://getcomposer.org/doc/01-basic-usage.md#autoloading)[https://getcomposer.org/doc/01-basic-usage.md#autoloading] <br />
+[https://getcomposer.org/doc/01-basic-usage.md#autoloading](https://getcomposer.org/doc/01-basic-usage.md#autoloading) <br />
+[http://www.jc-mouse.net/desarrollo-web/crea-un-servicio-web-rest-con-php-y-mysql-parte-2](http://www.jc-mouse.net/desarrollo-web/crea-un-servicio-web-rest-con-php-y-mysql-parte-2)
