@@ -9,6 +9,7 @@ Versión
 * Composer: 1.6.5
 
 ## Creando las carpetas
+
 Crearemos las carpetas de `messages` donde guardaremos los esquemas de las clases y otra llamada `proto`, en ella guardaremos los esquemas generados en PHP
 ```
 PHP
@@ -24,18 +25,22 @@ $ composer init
 ```
 
 Despues agregaremos la dependencia de el proyecto de `google/protobuf` en el archivo `composer.json` que se generó al terminar de ejecutar el comando `init` y agregaremos la siguiente linea en los corchetes del `require`:
+
 ```
 "google/protobuf":"*"
 ```
 
 Y entonces instalaremos la libreria ejecutando el siguiente comando:
+
 ```
 $ composer update
 ```
 
 ## Creando los esquemas
+
 En la carpeta de `messages` generaremos tres archivos con los siguientes datos:
 El archivo llamado `person.proto` que contendrá la clase Persona, donde especificaremos los datos que va a tener así como del nombre del paquete.
+
 ```
 syntax = "proto3";
 import "phoneNumber.proto";
@@ -50,6 +55,7 @@ message Person {
 ```
 
 Otro archivo llamado `phoneNumber.proto`, en el pondremos el estructura de la clase de Teléfono.
+
 ```
 syntax = "proto3";
 import "phoneType.proto";
@@ -63,6 +69,7 @@ message PhoneNumber {
 ```
 
 Y por último `phoneType.proto` que solo tendrá los tipos de teléfonos.
+
 ```
 syntax = "proto3";
 package messages;
@@ -75,6 +82,7 @@ enum PhoneType {
 ```
 
 Para generar las clases en PHP con protoc usaremos el siguiente comando:
+
 ```
 $ protoc --proto_path=./messages/ --php_out=./proto/ ./messages/*.proto
 ```
@@ -82,6 +90,7 @@ $ protoc --proto_path=./messages/ --php_out=./proto/ ./messages/*.proto
 Esto nos generará las carpetas `Messages` y `GPBMetadata` dentro de la carpeta `proto`, aqui se encontrarán nuestros esquemas.
 
 El siguiente paso será incluir los archivos generados en esas carpetas dentro de nuestro proyecto, para eso usaremos el archivo `composer.json` y las agregaremos a su [autoload](https://getcomposer.org/doc/01-basic-usage.md#autoloading), especificando que el namespace de `Messages` se encuentra en la ruta de `./proto/Messages/` y `GPBMetadata` en `./proto/GPBMetadata/`:
+
 ```
 {
     "autoload": {
@@ -92,9 +101,49 @@ El siguiente paso será incluir los archivos generados en esas carpetas dentro d
     }
 }
 ```
+
 Despues volvemos a generar los archivos de autolad con el siguiente comando:
+
 ```
 $ composer dump-autoload -o
+```
+
+## Usando los messages del lado del servidor
+
+Para este ejemplo crearemos un archivo llamado `index.php` y lo primero a hacer es importar el `autoload.php` ubicado enla carpta de `vendor` por medio del siguiente código:
+
+```php
+<?php
+
+require_once "./vendor/autoload.php";
+```
+
+Despues especificaremos que usaremos las clases de los esquemas generados llamados `Person`, `PhoneNumber` y `PhoneType` contenidos en el namespace de `Messages`:
+
+```php
+use Messages\Person;
+use Messages\PhoneNumber;
+use Messages\PhoneType;
+```
+
+Entonces espeficamos la respuesta a mostrar dependiendo del tipo de petición:
+
+```php
+//Especificamos que la respuesta tendrá como contenido  
+header('Content-Type: application/x-protobuf');
+
+// Obtenemos el tipo de la petición
+$method = $_SERVER['REQUEST_METHOD'];
+switch ($method) {
+    // En caso de la petición GET ejecutaremos el método llamado get.
+    case 'GET':
+        echo get();
+        break; 
+    // En caso de la petición POST ejecutaremos el método llamado post.
+    case 'POST':
+        echo post();
+        break;
+}
 ```
 
 ## Referencias
