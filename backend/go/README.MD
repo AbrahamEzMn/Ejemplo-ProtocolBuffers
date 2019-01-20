@@ -213,6 +213,8 @@ func main() {
 }
 ```
 
+### Método para probar la petición GET
+
 El método `testGet` tendria el siguiente código:
 ```go
 // Método para probar la petición GET
@@ -257,6 +259,74 @@ Y por lado del servidor nos debe mostrar lo siguiente:
 name:"Nombre1" id:1 email:"correo@electronico.com" phone:<number:"123 456 78 90" type:HOME > 
 ```
 
+### Método para probar la petición POST
+
+Mientras que el cógido POST será el siguiente:
+```go
+func testPost() {
+    //Creamos la persona
+    person := &messages.Person{
+        //Le asignamos un nombre
+        Name: "Nombre2",
+        //Un ID
+        Id: 1,
+        //Un correo electrónico
+        Email: "correo2@electronico2.com",
+        //La lista de teléfonos
+        Phone: []*messages.PhoneNumber{
+
+            //Teléfono de trabajo
+            &messages.PhoneNumber {
+                Number: "987 654 32 10",
+                Type: messages.PhoneType_WORK,
+            },
+        },
+    }
+
+    // Mostramos los datos de la persona
+    log.Print(person.String())
+
+    // Serializamos los datos de la persona.
+    data, err := proto.Marshal(person)
+    if err != nil {
+        log.Fatal("marshaling error: ", err)
+    }
+
+    // Creamos el cliente y configuramos la petición POST.
+    client := &http.Client{}
+    req, err := http.NewRequest("POST", "http://127.0.0.1:3000/message", bytes.NewBuffer(data))
+    req.Header.Add("Content-Type", "application/x-protobuf")
+    res, err := client.Do(req)
+    if err != nil {
+        panic(err)
+    }
+
+    // Decodificamos el body.
+    bodyBytes, err := ioutil.ReadAll(res.Body)
+    if err != nil {
+        panic(err)
+    }
+
+    // Mostramos el resultado de la petición.
+    log.Print(string(bodyBytes))
+}
+``` 
+
+Al ejecutar este método nos debe lanzar el siguiente resultado en la consola del cliente
+```
+name:"Nombre2" id:1 email:"correo2@electronico2.com" phone:<number:"987 654 32 10" type:WORK >
+Nombre2
+```
+
+Y por lado del servidor nos debe mostrar lo siguiente:
+```
+name:"Nombre2" id:1 email:"correo2@electronico2.com" phone:<number:"987 654 32 10" type:WORK > 
+```
+
+Para ejecutar este archivo usaremos el siguiente comando:
+```
+$ go run src/maintest.go
+```
 
 ## Referencias
 

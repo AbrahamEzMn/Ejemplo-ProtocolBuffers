@@ -15,7 +15,7 @@ func main() {
     // Probamos el método GET
     testGet()
     // Probamos el método POST
-    //testPost()
+    testPost()
 }
 
 // Método para probar la petición GET
@@ -62,7 +62,7 @@ func testPost() {
 		//La lista de teléfonos
 		Phone: []*messages.PhoneNumber{
 
-			//Teléfono de casa
+			//Teléfono de trabajo
 			&messages.PhoneNumber {
 				Number: "987 654 32 10",
 				Type: messages.PhoneType_WORK,
@@ -73,12 +73,13 @@ func testPost() {
 	// Mostramos los datos de la persona
     log.Print(person.String())
 
-    // Serializamos los datos de la persona
+    // Serializamos los datos de la persona.
 	data, err := proto.Marshal(person)
 	if err != nil {
 		log.Fatal("marshaling error: ", err)
 	}
 
+    // Creamos el cliente y configuramos la petición POST.
     client := &http.Client{}
     req, err := http.NewRequest("POST", "http://127.0.0.1:3000/message", bytes.NewBuffer(data))
     req.Header.Add("Content-Type", "application/x-protobuf")
@@ -86,11 +87,13 @@ func testPost() {
     if err != nil {
         panic(err) 
     }
- 
+    
+    // Decodificamos el body.
     bodyBytes, err := ioutil.ReadAll(res.Body)
     if err != nil {
         panic(err)
     }
 
+    // Mostramos el resultado de la petición.
     log.Print(string(bodyBytes))
 }
