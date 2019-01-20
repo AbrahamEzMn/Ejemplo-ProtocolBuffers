@@ -187,7 +187,7 @@ $ go run src/main.go
 
 ## Creando el archivo de prueba
 
-Crearemos un archivo llamado `maintest.go`, en él importaremos los paquetes de `log`, `net/log`,`io/ioutil`, `bytes`, `protobuf/proto` y las clases que generamos `proto/messages` :
+Crearemos un archivo llamado `maintest.go`, en él importaremos los paquetes de `log`, `net/log`,`io/ioutil`, `bytes`, `protobuf/proto` y las clases que generamos `proto/messages`:
 ```go
 package main
 
@@ -202,6 +202,60 @@ import (
     "proto/messages"
 )
 ``` 
+
+Y en el método `main` delcaramos los dos métodos de prueba:
+```go
+func main() {
+    // Probamos el método GET
+    testGet()
+    // Probamos el método POST
+    testPost()
+}
+```
+
+El método `testGet` tendria el siguiente código:
+```go
+// Método para probar la petición GET
+func testGet(){
+
+    // Creamos el cliente y configuramos la petición GET
+    client := &http.Client{}
+    req, err := http.NewRequest("GET", "http://127.0.0.1:3000/message", nil)
+    req.Header.Add("Content-Type", "application/x-protobuf")
+    resp, err := client.Do(req)
+    if err != nil {
+        panic(err) 
+    }
+    defer resp.Body.Close()
+
+    // Leemos el body en bytes
+    bodyBytes, err := ioutil.ReadAll(resp.Body)
+    if err != nil {
+        panic(err)
+    }
+
+    // Declaramos una instancia de la Persona.
+    person := &messages.Person{}
+
+    //Decodificamos el body
+    err = proto.Unmarshal(bodyBytes, person)
+    if err != nil {
+        log.Fatal("unmarshaling error: ", err)
+    }
+
+    //Mostramos los datos de la persona
+    log.Print(person.String())
+}
+```
+
+Al ejecutar este método nos debe lanzar el siguiente resultado en la consola del cliente
+```
+name:"Nombre1" id:1 email:"correo@electronico.com" phone:<number:"123 456 78 90" type:HOME >
+```
+Y por lado del servidor nos debe mostrar lo siguiente:
+```
+name:"Nombre1" id:1 email:"correo@electronico.com" phone:<number:"123 456 78 90" type:HOME > 
+```
 
 
 ## Referencias

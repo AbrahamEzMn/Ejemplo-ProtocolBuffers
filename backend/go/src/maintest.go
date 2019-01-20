@@ -2,7 +2,7 @@ package main
  
 import (
     "log"
-    
+
     "net/http"
     "io/ioutil"
     "bytes"
@@ -12,11 +12,16 @@ import (
 )
  
 func main() {
+    // Probamos el método GET
     testGet()
+    // Probamos el método POST
     //testPost()
 }
 
+// Método para probar la petición GET
 func testGet(){
+
+    // Creamos el cliente y configuramos la petición GET
     client := &http.Client{}
     req, err := http.NewRequest("GET", "http://127.0.0.1:3000/message", nil)
     req.Header.Add("Content-Type", "application/x-protobuf")
@@ -26,20 +31,23 @@ func testGet(){
     }
     defer resp.Body.Close()
  
+    // Leemos el body en bytes 
     bodyBytes, err := ioutil.ReadAll(resp.Body)
     if err != nil {
         panic(err)
     }
- 
+    
+    // Declaramos una instancia de la Persona.
     person := &messages.Person{}
-	
+    
+    //Decodificamos el body
     err = proto.Unmarshal(bodyBytes, person)
 	if err != nil {
 		log.Fatal("unmarshaling error: ", err)
 	}
 
 	//Mostramos los datos de la persona
-	log.Print(person.Name)
+	log.Print(person.String())
 }
 
 func testPost() {
