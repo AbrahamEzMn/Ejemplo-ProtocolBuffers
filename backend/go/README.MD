@@ -190,4 +190,5 @@ $ go run src/main.go
 [https://golang.org/doc/code.html](https://golang.org/doc/code.html)<br />
 [https://github.com/golang/protobuf/](https://github.com/golang/protobuf/)<br />
 https://developers.google.com/protocol-buffers/docs/reference/go-generated<br />
-[http://dlintw.github.io/gobyexample/public/http-client.html](http://dlintw.github.io/gobyexample/public/http-client.html)
+[http://dlintw.github.io/gobyexample/public/http-client.html](http://dlintw.github.io/gobyexample/public/http-client.html)<br />
+[http://moazzam-khan.com/blog/golang-make-http-requests/](http://moazzam-khan.com/blog/golang-make-http-requests/)
