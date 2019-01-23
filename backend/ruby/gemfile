@@ -1,0 +1,3 @@
+source 'https://rubygems.org' do
+    gem 'google-protobuf', '~> 3.6', '>= 3.6.1'
+gemspec
