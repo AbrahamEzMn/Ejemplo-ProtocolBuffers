@@ -13,10 +13,13 @@ while session = server.accept
   person = Messages::Person.new(:name => "Abraham", :id => 2)
   person.email = "abraham.esparza.m010@gmail.com"
 
+  person.phone.push(
+    Messages::PhoneNumber.new(:number => '3216549874', :type => Messages::PhoneType::HOME)
+  )
+
   session.print "HTTP/1.1 200\r\n" # 1
-  session.print "Content-Type: text/html\r\n" # 2
-  session.print "\r\n" # 3
-  session.print "Hello world! The time is #{Time.now}" #4
+  session.print "Content-Type: application/x-protobuf\r\n" # 2
+  session.print Messages::Person.encode(person)
 
   puts Messages::Person.encode_json(person)
 
