@@ -184,7 +184,7 @@ function get(): string {
 }
 ```
 
-### Recibiendo um message serializado
+### Recibiendo un message serializado
 
 Para poder decodificar los messages serilizados usaremos una petición tipo `POST` y como respuesta regresaremos el nombre del usuario:
 
