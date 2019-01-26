@@ -25,7 +25,7 @@ DART
 ```
 
 ```bash
-$ protoc --dart_out=bin/proto --proto_path=./messages/ messages/*.proto
+($) protoc --dart_out=bin/proto --proto_path=./messages/ messages/*.proto
 ```
 
 ```bash
