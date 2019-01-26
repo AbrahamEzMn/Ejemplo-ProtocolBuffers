@@ -41,7 +41,7 @@ Despues ejecutamos el siguiente comando para descargar las dependencias y al mis
 pub get
 ```
 
-## Instalando el pluggin protoc_plugin
+## Instalando el plugin protoc_plugin
 
 Este pluggin sera de necesario para generar los esquemas en `DART` y para poder instalarlo solo necesitamos ejecutar el siguiete comando:
 
@@ -55,7 +55,7 @@ Y para poder ejecutarlo junto con el comando `protoc` necesitaremos usar la carp
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 ```
 
-## Creando los esquemas de las clases
+## Creando los esquemas
 
 En la carpeta de `messages` generaremos tres archivos con los siguientes datos:
 El archivo llamado `person.proto` que contendrá la clase Persona, donde especificaremos los datos que va a tener así como del nombre del paquete.
@@ -107,6 +107,99 @@ protoc --proto_path=./messages/ --dart_out=./bin/proto ./messages/*.proto
 ```
 
 Esto nos generará cuatro archivos por clase en la carpeta de `bin/protoc`, los archivos principales a utilizar sera los de extencion `.pb.dart`.
+
+## Usando los esquemas en el servidor
+
+Para empezar a usar las clases dentro de nuestro servidor lo primer que debemos hacer es crear una archivo llamado `server.dart` dentro de la carpeta `bin`, y dentro de ella agregaremos las siguientes lineas para importar nuestras clases generadas y librerias autilizar en este ejemplo:
+
+```dart
+import 'dart:io';
+import 'dart:convert';
+import 'dart:async';
+import 'proto/person.pb.dart';
+import 'proto/phoneNumber.pb.dart';
+import 'proto/phoneType.pb.dart';
+```
+
+Para crear nuestra instancia del servidor usaremos el siguiente código:
+
+```dart
+// Método principal
+Future main() async {
+
+    // Declaramos la configuación de nuestro servidor.
+    var server = await HttpServer.bind(InternetAddress.loopbackIPv4,4040,);
+    print('Listening on localhost:${server.port}');
+
+    // Ejecutamos el hilo del servidor.
+    await for (HttpRequest request in server) {
+        // Cuando recibamos una petición tipo GET ejecutamos el método `handleGet`
+        if (request.method == 'GET') {
+            handleGet(request);
+        }
+        // Cuando recibamos una petición tipo POST ejecutamos el método `handlePost`
+        else if (request.method == 'POST') {
+            handlePost(request);
+        }
+    }
+}
+```
+
+### Enviando el message serializado
+
+Para ejemplificar la serialización de los messages enviaremos en la petición `GET` los datos de una persona, eso lo haremos en el método `handleGet`:
+
+```dart
+/**
+ * Maneja la peticiones tipo GET.
+ *
+ * @param request Petición HTTP.
+ */
+void handleGet(HttpRequest request) {
+    // Creamos una persona.
+    Person p = new Person()
+        ..name = 'Nombre'
+        ..email = 'correo@electronico.com'
+        ..id = 2
+        ..phone.add (
+            new PhoneNumber()
+                ..type = PhoneType.WORK
+                ..number = '1234567891')
+        ..phone.add (
+            new PhoneNumber()
+                ..number = '321659871'
+                ..type = PhoneType.HOME);
+
+    // Enviamos la persona serializada como respuesta.
+    request.response
+        ..headers.contentType = ContentType('application', 'x-protobuf')
+        ..add(p.writeToBuffer())
+        ..close();
+}
+```
+
+### Recibiendo un message serializado
+
+En caso contrario en el método `POST`, recibiremos los datos serilizados y procederemos a decoficarlo para enviar el nombre de la persona como respuesta:
+
+```dart
+/**
+ * Maneja la peticiones de manera asincrona tipo POST.
+ *
+ * @param request Peticion HTTP.
+ */
+void handlePost(HttpRequest request) async {
+    // Obtenemos los datos del body y la convertimos a una lista de bytes.
+    var bodyBytes =  utf8.encode(await request.transform(utf8.decoder).join());
+    // Creamos la persona a partir del body.
+    Person person = Person.fromBuffer(bodyBytes);
+
+    // Retornamos el nombre de la persona como respuesta.
+    request.response
+        ..writeln(person.name)
+        ..close();
+}
+```
 
 ## Referencias
 
