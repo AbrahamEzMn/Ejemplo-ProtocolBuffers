@@ -1,6 +1,7 @@
 # Protocol-Buffers en DART
 
 Versión
+
 * Os: Ubuntu 18.04.1 LTS
 * Cpu: Intel(R) Core(TM) i3-3120M @ 2.50GHz
 * Protobuf: libprotoc 3.6.1
@@ -17,7 +18,7 @@ Para crear este ejemplo necesitaremos 3 carpetas, llamadas:
 
 Seguira la siguiente estructura:
 
-```bash
+```dir
 DART
   ├─bin
   │  └─proto
@@ -25,15 +26,16 @@ DART
 ```
 
 ```bash
-($) protoc --dart_out=bin/proto --proto_path=./messages/ messages/*.proto
+protoc --dart_out=bin/proto --proto_path=./messages/ messages/*.proto
 ```
 
 ```bash
-$ export PATH="$PATH":"$HOME/.pub-cache/bin"
+export PATH="$PATH":"$HOME/.pub-cache/bin"
 ```
 
-# Referencias
-https://www.dartlang.org/tutorials/server/httpserver <br />
-https://pub.dartlang.org/packages/protoc_plugin#-installing-tab-<br />
-https://pub.dartlang.org/packages/protobuf#-installing-tab-<br />
-https://developers.google.com/protocol-buffers/docs/darttutorial<br />
+## Referencias
+
+[https://www.dartlang.org/tutorials/server/httpserver](https://www.dartlang.org/tutorials/server/httpserver)__
+[https://pub.dartlang.org/packages/protoc_plugin#-installing-tab-](https://pub.dartlang.org/packages/protoc_plugin#-installing-tab-)__
+[https://pub.dartlang.org/packages/protobuf#-installing-tab-](https://pub.dartlang.org/packages/protobuf#-installing-tab-)__
+[https://developers.google.com/protocol-buffers/docs/darttutorial](https://developers.google.com/protocol-buffers/docs/darttutorial)__
