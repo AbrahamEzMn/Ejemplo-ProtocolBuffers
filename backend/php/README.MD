@@ -207,6 +207,84 @@ function post(): string {
 }
 ```
 
+## Creando el archivo de prueba
+
+Crearemos un archivo en la raíz de nuestro proyecto para probar los métodos llamado `test.php` y agregaremos las siguientes lineas para hacerlo funcionar:
+
+```php
+<?php
+
+require_once "./vendor/autoload.php";
+
+use Messages\Person;
+use Messages\PhoneNumber;
+use Messages\PhoneType;
+```
+
+### Probando el método GET
+
+Para probar el GET agregaremos las siguientes lineas al archivo `test.php`:
+
+```php
+// Hacemos una petición tipo GET  
+$response = file_get_contents('http://127.0.0.1:8080/protocolbuffers/');
+
+// Creamos una persona.
+$person = new Person();
+// Vaciamos los datos de la persona. 
+$person->mergeFromString($response);
+// Mostramos los datos serialiados en fomrato json.
+echo "TEST GET: {$person->serializeToJsonString()} <br>";
+```
+
+Al visualizar este archivo en el navegador nos deberia mostrar la siguiente linea:
+
+```
+TEST GET: {"name":"Nombre 1","email":"correo@electronico.com","phone":[{"number":"1234561230","type":"HOME"},{"number":"0987654321","type":"WORK"}]} 
+```  
+
+### Probando el método POST
+
+Para probar el metodo POST necesitamos enviar una persona serializada:
+
+```php
+// Creamos a la persona a enviar
+$person = (new Person)
+                // Colocamos un nombre.
+                ->setName("Nombre 2")
+                // Asignamos el correo.
+                ->setEmail("correo2@electronico2.com")
+                // Creamos la lista de teléfonos.
+                ->setPhone(
+                    [
+                        // Creamos un teléfono de casa.
+                        (new PhoneNumber)
+                            ->setNumber("3216549800")
+                            ->setType(PhoneType::HOME),
+                    ]
+                );
+// Creamos las opciones de la petición.
+$options = [
+    'http' => [
+        'header'  => "Content-type: application/x-protobuf\r\n",
+        'method'  => 'POST',
+        'content' => $person->serializeToString()
+    ]
+];
+// Creamos el contexto.
+$context  = stream_context_create($options);
+// Ejecutamos la petición.
+$result = file_get_contents('http://127.0.0.1:8080/protocolbuffers/', false, $context);
+// Mostramos el resultado.
+echo "TEST POST: {$result}";
+```
+
+Al visualizar este método nos deberia mostrar la siguiente linea:
+
+```
+TEST POST: Nombre 2
+```
+
 ## Referencias
 [https://github.com/protocolbuffers/protobuf/tree/master/php](https://github.com/protocolbuffers/protobuf/tree/master/php)<br />
 [https://developers.google.com/protocol-buffers/docs/reference/php-generated](https://developers.google.com/protocol-buffers/docs/reference/php-generated)<br />
