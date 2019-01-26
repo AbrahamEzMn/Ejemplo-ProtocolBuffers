@@ -7,12 +7,29 @@ Versión
 * Sintaxis: Proto3
 * Dart: 2.1.0
 
-```
-protoc --dart_out=bin/proto --proto_path=./messages/ messages/*.proto
+## Creación del proyecto
+
+Para crear este ejemplo necesitaremos 3 carpetas, llamadas:  
+
+* `bin`: Aqui guardaremos las clases funcionales.
+* `proto`: Aquí guardaremos los archivos generados de los esquemas.
+* `messages`: Aquí guardaremos los esquemas de los `messages`.
+
+Seguira la siguiente estructura:
+
+```bash
+DART
+  ├─bin
+  │  └─proto
+  └─messages
 ```
 
+```bash
+$ protoc --dart_out=bin/proto --proto_path=./messages/ messages/*.proto
 ```
-export PATH="$PATH":"$HOME/.pub-cache/bin"
+
+```bash
+$ export PATH="$PATH":"$HOME/.pub-cache/bin"
 ```
 
 # Referencias
