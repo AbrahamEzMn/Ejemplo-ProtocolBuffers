@@ -35,7 +35,7 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 ## Referencias
 
-[https://www.dartlang.org/tutorials/server/httpserver](https://www.dartlang.org/tutorials/server/httpserver)__
-[https://pub.dartlang.org/packages/protoc_plugin#-installing-tab-](https://pub.dartlang.org/packages/protoc_plugin#-installing-tab-)__
+[https://www.dartlang.org/tutorials/server/httpserver](https://www.dartlang.org/tutorials/server/httpserver)\
+[https://pub.dartlang.org/packages/protoc_plugin#-installing-tab-](https://pub.dartlang.org/packages/protoc_plugin#-installing-tab-)\
 [https://pub.dartlang.org/packages/protobuf#-installing-tab-](https://pub.dartlang.org/packages/protobuf#-installing-tab-)__
 [https://developers.google.com/protocol-buffers/docs/darttutorial](https://developers.google.com/protocol-buffers/docs/darttutorial)__
