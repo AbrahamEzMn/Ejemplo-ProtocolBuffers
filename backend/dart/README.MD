@@ -1,4 +1,4 @@
-# Usando Protocol-Buffers en DART
+# Protocol-Buffers en DART
 
 Versión
 * Os: Ubuntu 18.04.1 LTS
