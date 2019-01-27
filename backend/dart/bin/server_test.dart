@@ -6,8 +6,10 @@ import 'proto/person.pb.dart';
 import 'proto/phoneNumber.pb.dart';
 import 'proto/phoneType.pb.dart';
 
+// Dirección del servidor.
 String _host = InternetAddress.loopbackIPv4.host;
 
+// Función proncipal
 Future main() async {
     print (await getTest());
     print (await getPost());

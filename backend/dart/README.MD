@@ -201,6 +201,124 @@ void handlePost(HttpRequest request) async {
 }
 ```
 
+Para ejecutar el servidor usaremos el siguiente comando:
+
+```bash
+pub run server.dart
+```
+
+## Creando el archivo de prueba
+
+Para probar nuestro servidor crearemos un archivo llamado `server.test` en la carpeta de `bin` con la siguiente estructura
+
+```dart
+import 'dart:io';
+import 'dart:convert';
+import 'dart:async';
+import 'proto/person.pb.dart';
+import 'proto/phoneNumber.pb.dart';
+import 'proto/phoneType.pb.dart';
+
+// Dirección del servidor.
+String _host = InternetAddress.loopbackIPv4.host;
+
+// Función proncipal
+Future main() async {
+    print (await getTest());
+    print (await getPost());
+}
+```
+
+### Probando el método GET
+
+Para probar las peticiones `GET` agregaremos las siguientes lineas al archivo `server_test.dart`:
+
+```dart
+/**
+ * Prueba el método GET en el servidor.
+ *
+ * @return Estructura de la persona.
+ */
+getTest() async {
+    // Creamos la petición tipo POST.
+    HttpClientRequest request = await HttpClient().get(_host, 4040, '/');
+    // Obtenemos la respuesta del servidor.
+    HttpClientResponse response = await request.close();
+    // Decodificamos la información recibida.
+    var bodyBytes =  utf8.encode(await response.transform(utf8.decoder).join());
+    // Creamos la persona a partir de la respuesta.
+    Person person = Person.fromBuffer(bodyBytes);
+    // Retornamos los datos de la persona  en forma de string.
+    return person.toString();
+}
+```
+
+Como respuesta deberemos obtener el siguiente resultado:
+
+```bash
+name: Nombre
+id: 2
+email: correo@electronico.com
+phone: {
+  number: 1234567891
+  type: WORK
+}
+phone: {
+  number: 321659871
+  type: HOME
+}
+```
+
+### Probando el método POST
+
+Para probar el método `POST` enviaremos una persona serializada y lo haremos con las siguientes lineas:
+
+```dart
+/**
+ * Prueba el método POST en el servidor.
+ *
+ * @return Respuesta del servidor.
+ */
+getPost() async {
+    // Creamos la persona.
+    Person person = new Person()
+        ..name = 'Nombre 2'
+        ..email = 'correo2@electronico2.com'
+        ..id = 2
+        ..phone.add (
+            new PhoneNumber()
+                ..type = PhoneType.WORK
+                ..number = '0132456789')
+        ..phone.add (
+            new PhoneNumber()
+                ..number = '111111111'
+                ..type = PhoneType.HOME);
+
+    // Hacemos la petición tipo POST y agregamos la persona serializada
+    HttpClientRequest request = await HttpClient().post(_host, 4040, '/')
+        ..headers.contentType = ContentType("application", "x-protobuf")
+        ..add(person.writeToBuffer());
+
+    // Obtenemos la respuesta del servidor.
+    HttpClientResponse response = await request.close();
+
+    // Retornamos la respuesta del servidor.
+    return await response.transform(utf8.decoder).join();
+}
+```
+
+Como respuesta solo obtendremos el nombre de la persona que le enviamos:
+
+```bash
+Nombre 2
+```
+
+Para ejecutar nuestro archivo de prueba lo haremos con el siguiete comando:
+
+```bash
+pub run server_test.dart
+```
+
 ## Referencias
 
 [https://www.dartlang.org/tutorials/server/httpserver](https://www.dartlang.org/tutorials/server/httpserver)\
