@@ -1,6 +1,7 @@
 # Protocol-Buffers con PHP
 
 Versión
+
 * Os: Ubuntu 18.04.1 LTS
 * Cpu: Intel(R) Core(TM) i3-3120M @ 2.50GHz
 * Protobuf: libprotoc 3.6.1
@@ -11,7 +12,8 @@ Versión
 ## Creando las carpetas
 
 Crearemos las carpetas de `messages` donde guardaremos los esquemas de las clases y otra llamada `proto`, en ella guardaremos los esquemas generados en PHP
-```
+
+```bash
 PHP
  ├─messages
  └─proto
@@ -20,19 +22,20 @@ PHP
 ## Inicializando el proyecto
 
 Para usar la libreria de `google/protobuf` necesitaremos usar el administrador de dependencias [composer](https://getcomposer.org/download/) y ejecutar el siguiente comando:
-```
+
+```bas
 $ composer init
 ```
 
 Despues agregaremos la dependencia de el proyecto de `google/protobuf` en el archivo `composer.json` que se generó al terminar de ejecutar el comando `init` y agregaremos la siguiente linea en los corchetes del `require`:
 
-```
+```bas
 "google/protobuf":"*"
 ```
 
 Y entonces instalaremos la libreria ejecutando el siguiente comando:
 
-```
+```bas
 $ composer update
 ```
 
@@ -41,7 +44,7 @@ $ composer update
 En la carpeta de `messages` generaremos tres archivos con los siguientes datos:
 El archivo llamado `person.proto` que contendrá la clase Persona, donde especificaremos los datos que va a tener así como del nombre del paquete.
 
-```
+```proto
 syntax = "proto3";
 import "phoneNumber.proto";
 package messages;
@@ -56,7 +59,7 @@ message Person {
 
 Otro archivo llamado `phoneNumber.proto`, en el pondremos el estructura de la clase de Teléfono.
 
-```
+```proto
 syntax = "proto3";
 import "phoneType.proto";
 package messages;
@@ -70,7 +73,7 @@ message PhoneNumber {
 
 Y por último `phoneType.proto` que solo tendrá los tipos de teléfonos.
 
-```
+```proto
 syntax = "proto3";
 package messages;
 
@@ -83,7 +86,7 @@ enum PhoneType {
 
 Para generar las clases en PHP con protoc usaremos el siguiente comando:
 
-```
+```bash
 $ protoc --proto_path=./messages/ --php_out=./proto/ ./messages/*.proto
 ```
 
@@ -91,7 +94,7 @@ Esto nos generará las carpetas `Messages` y `GPBMetadata` dentro de la carpeta 
 
 El siguiente paso será incluir los archivos generados en esas carpetas dentro de nuestro proyecto, para eso usaremos el archivo `composer.json` y las agregaremos a su [autoload](https://getcomposer.org/doc/01-basic-usage.md#autoloading), especificando que el namespace de `Messages` se encuentra en la ruta de `./proto/Messages/` y `GPBMetadata` en `./proto/GPBMetadata/`:
 
-```
+```json
 {
     "autoload": {
         "psr-4": {
@@ -104,7 +107,7 @@ El siguiente paso será incluir los archivos generados en esas carpetas dentro d
 
 Despues volvemos a generar los archivos de autolad con el siguiente comando:
 
-```
+```proto
 $ composer dump-autoload -o
 ```
 
@@ -154,7 +157,7 @@ El método `get` enviará los datos de un usuario serializado de la siguiente fo
 
 /**
  * Administra las peticiones tipo GET.
- * 
+ *
  * @return string Message serializado en bytes guardados en un string.
  */
 function get(): string {
@@ -231,7 +234,7 @@ $response = file_get_contents('http://127.0.0.1:8080/protocolbuffers/');
 
 // Creamos una persona.
 $person = new Person();
-// Vaciamos los datos de la persona. 
+// Vaciamos los datos de la persona.
 $person->mergeFromString($response);
 // Mostramos los datos serialiados en fomrato json.
 echo "TEST GET: {$person->serializeToJsonString()} <br>";
@@ -239,8 +242,8 @@ echo "TEST GET: {$person->serializeToJsonString()} <br>";
 
 Al visualizar este archivo en el navegador nos deberia mostrar la siguiente linea:
 
-```
-TEST GET: {"name":"Nombre 1","email":"correo@electronico.com","phone":[{"number":"1234561230","type":"HOME"},{"number":"0987654321","type":"WORK"}]} 
+```proto
+TEST GET: {"name":"Nombre 1","email":"correo@electronico.com","phone":[{"number":"1234561230","type":"HOME"},{"number":"0987654321","type":"WORK"}]}
 ```  
 
 ### Probando el método POST
@@ -281,12 +284,13 @@ echo "TEST POST: {$result}";
 
 Al visualizar este método nos deberia mostrar la siguiente linea:
 
-```
+```proto
 TEST POST: Nombre 2
 ```
 
 ## Referencias
-[https://github.com/protocolbuffers/protobuf/tree/master/php](https://github.com/protocolbuffers/protobuf/tree/master/php)<br />
-[https://developers.google.com/protocol-buffers/docs/reference/php-generated](https://developers.google.com/protocol-buffers/docs/reference/php-generated)<br />
-[https://getcomposer.org/doc/01-basic-usage.md#autoloading](https://getcomposer.org/doc/01-basic-usage.md#autoloading) <br />
+
+[https://github.com/protocolbuffers/protobuf/tree/master/php](https://github.com/protocolbuffers/protobuf/tree/master/php)\
+[https://developers.google.com/protocol-buffers/docs/reference/php-generated](https://developers.google.com/protocol-buffers/docs/reference/php-generated)\
+[https://getcomposer.org/doc/01-basic-usage.md#autoloading](https://getcomposer.org/doc/01-basic-usage.md#autoloading) \
 [http://www.jc-mouse.net/desarrollo-web/crea-un-servicio-web-rest-con-php-y-mysql-parte-2](http://www.jc-mouse.net/desarrollo-web/crea-un-servicio-web-rest-con-php-y-mysql-parte-2)
