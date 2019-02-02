@@ -1,0 +1,17 @@
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/obj/Debug/csharp.csprojAssemblyReference.cache
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/obj/Debug/csharp.csproj.CoreCompileInputs.cache
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/bin/csharp.dll
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/bin/csharp.pdb
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/bin/Google.Protobuf.dll
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/bin/Newtonsoft.Json.dll
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/bin/System.Net.Http.Formatting.dll
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/bin/System.Web.Http.dll
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/bin/System.Web.Http.WebHost.dll
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/bin/System.Net.Http.Formatting.xml
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/bin/System.Web.Http.xml
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/bin/System.Web.Http.WebHost.xml
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/bin/Newtonsoft.Json.xml
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/bin/Google.Protobuf.xml
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/obj/Debug/csharp.csproj.CopyComplete
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/obj/Debug/csharp.dll
+/home/abraham/github/Example-ProtocolBuffers/backend/csharp/csharp/obj/Debug/csharp.pdb

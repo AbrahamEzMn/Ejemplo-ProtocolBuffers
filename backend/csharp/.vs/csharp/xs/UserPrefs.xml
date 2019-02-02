@@ -1,0 +1,17 @@
+﻿<Properties StartupConfiguration="{6DCA9000-1FBC-442D-BC02-CF792F48440A}|">
+  <MonoDevelop.Ide.ItemProperties.csharp PreferredExecutionTarget="/usr/share/code/code" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="csharp/Controllers/PersonController.cs">
+    <Files>
+      <File FileName="csharp/App_Start/WebApiConfig.cs" Line="1" Column="1" />
+      <File FileName="csharp/Controllers/PersonController.cs" Line="35" Column="13" />
+      <File FileName="csharp/src/messages/phoneNumber.proto" Line="1" Column="1" />
+      <File FileName="csharp/src/proto/Person.cs" Line="171" Column="21" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
