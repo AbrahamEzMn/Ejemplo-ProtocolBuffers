@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Google.Protobuf;
 using Messages;
@@ -15,7 +16,7 @@ namespace csharp.Controllers
         public PersonController() { }
 
         [HttpGet]
-        public HttpResponseMessage getPerson() 
+        public HttpResponseMessage Get() 
         {
             Person person = new Person
             {
@@ -26,16 +27,22 @@ namespace csharp.Controllers
             person.Phone.Add(new PhoneNumber { Number = "4491234657", Type = PhoneType.Mobile });
             person.Phone.Add(new PhoneNumber { Number = "3216549871", Type = PhoneType.Work });
 
-            /*
-            byte[] byteArray;
-            using (MemoryStream stream = new MemoryStream()) {
-                person.WriteTo(stream);
-                byteArray = stream.ToArray();
-            }*/
-
-            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK, "value");
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new ByteArrayContent(person.ToByteArray());
             response.Content.Headers.ContentType = new MediaTypeHeaderValue ("application/x-protobuf");
+
+            return response;
+        }
+
+        [HttpPost]
+        public async Task<HttpResponseMessage> Post()
+        {
+            byte[] arr = await Request.Content.ReadAsByteArrayAsync();
+            Person person = Person.Parser.ParseFrom(arr);
+
+            Console.Out.WriteLine(person.ToString());
+            HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(person.Name);
 
             return response;
         }
