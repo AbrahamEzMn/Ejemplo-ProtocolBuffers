@@ -6,7 +6,7 @@ Lenguajes
 * [C#](./csharp)
 * [Dart](./dart)
 * [Go](./go)
-* [Java](./java)
+* [Java (Spring)](./java)
 * [Javascript (NodeJs)](./nodejs)
 * [PHP](./php)
-* [Ruby (Pausado)](./ruby)
+* [Ruby](./ruby) *Pausado
