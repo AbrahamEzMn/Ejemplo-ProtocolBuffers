@@ -107,6 +107,12 @@ namespace csharp.Controllers
 }
 ```
 
+Para acceder a este controlador entraremos a la siguiente ruta:
+
+```bas
+http://127.0.0.1:<port>/api/person/
+```
+
 ### Enviando el message serializado
 
 Para ejemplificar la serialización de los messages enviaremos en la petición `GET` los datos de una persona, eso lo haremos agregando el método `Get` a la clase `PersonController`:
