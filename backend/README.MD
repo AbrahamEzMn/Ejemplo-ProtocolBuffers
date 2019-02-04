@@ -3,5 +3,10 @@
 Este repositorio tiene como cometido mostrar como utilizar en el lado del servidor los esquemas de Protocol-Buffers.
 
 Lenguajes
-* [C#](https://github.com/AbrahamEzMn/Example-ProtocolBuffers/tree/master/backend/csharp)
+* [C#](./csharp)
 * [Dart](./dart)
+* [Go](./go)
+* [Java](./java)
+* [Javascript (NodeJs)](./nodejs)
+* [PHP](./php)
+* [Ruby (Pausado)](./ruby)
