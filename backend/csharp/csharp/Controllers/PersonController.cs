@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO;
+﻿
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Google.Protobuf;
@@ -13,34 +11,49 @@ namespace csharp.Controllers
 {
     public class PersonController : ApiController
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:csharp.Controllers.PersonController"/> class.
+        /// </summary>
         public PersonController() { }
 
+        /// <summary>
+        /// Crea una persona.
+        /// </summary>
+        /// <returns>Persona serializada.</returns>
         [HttpGet]
         public HttpResponseMessage Get() 
         {
+            // Creamos a la persona.
             Person person = new Person
             {
-                Name = "Abraham Esparza Moreno",
-                Email = "abraham.esparza.m010@gmail.com",
+                Name = "Nombre de la persona",
+                Email = "correo@electronico.com",
                 Id = 1
             };
             person.Phone.Add(new PhoneNumber { Number = "4491234657", Type = PhoneType.Mobile });
             person.Phone.Add(new PhoneNumber { Number = "3216549871", Type = PhoneType.Work });
 
+            // Creamos el mensaje de respuesta.
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
+            // Asignamos como contenido los datos de la persona.
             response.Content = new ByteArrayContent(person.ToByteArray());
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue ("application/x-protobuf");
+            // Asignamos el tipo de contenido a 'application/x-protobuf'.
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/x-protobuf");
 
+            // Retornamos la respuesta.
             return response;
         }
 
+        /// <summary>
+        /// Recibe una persona.
+        /// </summary>
+        /// <returns>El nombre de una persona.</returns>
         [HttpPost]
         public async Task<HttpResponseMessage> Post()
         {
-            byte[] arr = await Request.Content.ReadAsByteArrayAsync();
-            Person person = Person.Parser.ParseFrom(arr);
+            byte[] bodyBytes = await Request.Content.ReadAsByteArrayAsync();
+            Person person = Person.Parser.ParseFrom(bodyBytes);
 
-            Console.Out.WriteLine(person.ToString());
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(person.Name);
 
