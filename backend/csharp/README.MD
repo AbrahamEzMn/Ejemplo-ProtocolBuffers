@@ -78,7 +78,7 @@ Y para generar las clases en C# usaremos el siguiente comando:
 protoc --proto_path=./src/messages/ --csharp_out=./src/proto ./src/messages/*.proto
 ```
 
-Esto nos generará cuatro archivos por clase en la carpeta de `src/protoc`.
+Esto nos generará tres archivos por clase en la carpeta de `src/protoc`.
 
 ## Usando los esquemas en el servidor
 
