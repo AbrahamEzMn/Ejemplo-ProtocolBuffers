@@ -51,9 +51,12 @@ namespace csharp.Controllers
         [HttpPost]
         public async Task<HttpResponseMessage> Post()
         {
+            // Recibimos los bytes de la persona.
             byte[] bodyBytes = await Request.Content.ReadAsByteArrayAsync();
+            // Creamos la pesona a partir del body.
             Person person = Person.Parser.ParseFrom(bodyBytes);
 
+            // Creamos la respuesta con el nombre de la persona.
             HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(person.Name);
 
