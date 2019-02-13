@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import messages.PersonOuterClass;
+import messages.PhoneNumberOuterClass;
+import messages.PhoneTypeOuterClass;
 
 public class MainActivity extends AppCompatActivity implements IRequest {
 
@@ -19,11 +21,23 @@ public class MainActivity extends AppCompatActivity implements IRequest {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Ejecutamos una petición tipo GET.
         new GetRequestTask(this, URL).execute();
 
+        //Creamos una persona para enviarla en el body de una petición tipo POST.
         PersonOuterClass.Person per = PersonOuterClass.Person.newBuilder()
-                .setName("abraham")
+                .setName("Nombre de Usuario")
+                .setEmail("correo@electronico.com")
+                .setId(1)
+                .addPhone(
+                        PhoneNumberOuterClass.PhoneNumber.newBuilder()
+                        .setType(PhoneTypeOuterClass.PhoneType.HOME)
+                        .setNumber("1234567890")
+                        .build()
+                )
                 .build();
+
+        // Ejecutamos la petición tipo POST y enviamos a la persona como parametro.
         new PostRequestTask(this, URL).execute(per.toByteArray());
     }
 

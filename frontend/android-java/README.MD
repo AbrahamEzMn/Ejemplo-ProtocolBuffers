@@ -93,7 +93,7 @@ protoc --proto_path=./app/src/messages/ --java_out=./app/src/main/java/ ./app/sr
 
 Esto nos generará tres archivos en la carpeta de `app/src/main/java/messages/`.
 
-## Usando los esquemas en la aplicación
+## Creando las clases para realizar una peitición al servidor.
 
 Para poder usar nuestras clases tendremos que crear una estructura para poder realizar llamadas asincronas a un servidor Http y primero crearemos una interfaz para poder usar los métodos en cualquier clase, esta interfaz se llamará `IRequest` con la siguiente estructura:
 
@@ -277,6 +277,130 @@ public class PostRequestTask extends AsyncTask<byte[], Void, InputStream> {
 ```
 
 Estas clases retornarán objetos del tipo `InputStream` a las clases ejecutoras, el cual nos permitira manipular la respuesta como lo necesitemos.
+
+## Usando los esquemas en la aplicación
+
+Ya teniendo las todas las clases creadas procederemos a implementarlas en un `Activity` para ver su completo funcionamiento.
+
+Lo primero a realizar sera implementar la Interfaz `IRequest` a nuestro activity y lo haremos de la siguiente forma:
+
+```java
+public class MainActivity extends AppCompatActivity implements IRequest {
+```
+Esto nos pedira implementar los métodos `GetRequest` y `PostRequest` dentro de nuestro activity pero los crearemos hasta el final.
+
+Ademas de eso agregaremos una constante donde guardaremos la URL a donde realizaremos la petición de nuestro servidor:
+
+```java
+public class MainActivity extends AppCompatActivity implements IRequest {
+    
+    public static final String URL = "http://<HOST>:<PUERTO>/message";
+    
+    ...
+
+}
+```
+
+Y dentro del método `onCreate` ejecutaremos las peticiones tipo `GET` y `POST` de la siguiente manera:
+
+```java
+public class MainActivity extends AppCompatActivity implements IRequest {
+    
+    ...
+    
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        
+        ...
+
+        // Ejecutamos una petición tipo GET.
+        new GetRequestTask(this, URL).execute();
+
+        //Creamos una persona para enviarla en el body de una petición tipo POST.
+        PersonOuterClass.Person per = PersonOuterClass.Person.newBuilder()
+                .setName("Nombre de Usuario")
+                .setEmail("correo@electronico.com")
+                .setId(1)
+                .addPhone(
+                        PhoneNumberOuterClass.PhoneNumber.newBuilder()
+                        .setType(PhoneTypeOuterClass.PhoneType.HOME)
+                        .setNumber("1234567890")
+                        .build()
+                )
+                .build();
+
+        // Ejecutamos la petición tipo POST y enviamos a la persona como parametro.
+        new PostRequestTask(this, URL).execute(per.toByteArray());
+    }
+
+    ...
+}
+```
+
+### Recibiendo un message serializado.
+
+El primer método a crear dentro de nuestro activity será el `GetRequest` donde recibiremos una persona dentro de un `ImputStream`, por lo tanto agregaremos a la clase de la siguiente forma:
+
+```java
+public class MainActivity extends AppCompatActivity implements IRequest {
+
+    ...
+
+    /**
+     * Implementación de una petición GET.
+     * @param inputStream Respuesta de la petición.
+     */
+    @Override
+    public void GetRequest(InputStream inputStream) {
+        PersonOuterClass.Person persona;
+        try {
+            persona = PersonOuterClass.Person.parseFrom(inputStream);
+            Log.d("GetRequest", persona.toString());
+        }
+        catch(Exception e){
+            Log.e("GetRequest", e.toString());
+        }
+    }
+}
+```
+ 
+### Enviado datos serializados
+
+Y por último método a implementar será el `PostRequest` donde enviamos a una persona y reibiremos el nombre de ella dentro de un `ImputStream`, por lo tanto funcionará de la siguiente forma:
+
+```java
+public class MainActivity extends AppCompatActivity implements IRequest {
+
+    ...
+
+    /**
+     * Implementación de una petición POST.
+     * @param inputStream Respuesta de la petición.
+     */
+    @Override
+    public void PostRequest(InputStream inputStream) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        try {
+            InputStreamReader isr = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            String str;
+            while ((str = bufferedReader.readLine()) != null)
+                stringBuilder.append(str);
+
+            bufferedReader.close();
+        }
+        catch(Exception e) {
+            Log.e("PostRequest", e.toString());
+        }
+
+        Log.d("PostRequest", stringBuilder.toString());
+    }
+}
+```
+
+Para este ejemplo se utilizó un servidor creado en NodeJs como ejemplo que describo en esta [liga](https://github.com/AbrahamEzMn/Example-ProtocolBuffers/tree/master/backend/nodejs).  
 
 ## Referencias
 [https://docs.oracle.com/javase/7/docs/api/java/lang/ref/WeakReference.html](https://docs.oracle.com/javase/7/docs/api/java/lang/ref/WeakReference.html) \
