@@ -91,11 +91,192 @@ Y para generar las clases en Java usaremos el siguiente comando:
 protoc --proto_path=./app/src/messages/ --java_out=./app/src/main/java/ ./app/src/messages/*.proto
 ```
 
-Esto nos generará tres archivos por clase en la carpeta de `app/src/main/java/messages/`.
+Esto nos generará tres archivos en la carpeta de `app/src/main/java/messages/`.
 
 ## Usando los esquemas en la aplicación
 
+Para poder usar nuestras clases tendremos que crear una estructura para poder realizar llamadas asincronas a un servidor Http y primero crearemos una interfaz para poder usar los métodos en cualquier clase, esta interfaz se llamará `IRequest` con la siguiente estructura:
 
+```java
+import java.io.InputStream;
+
+/**
+ * Interfaz que implementará las peticiones de un Request.
+ */
+public interface IRequest {
+    /**
+     * Hace referencia a la implementación de una petición GET.
+     * @param inputStream Respuesta de la petición.
+     */
+    void GetRequest(InputStream inputStream);
+
+    /**
+     * Hace referencia a la implementación de una petición POST.
+     * @param inputStream Respuesta de la petición.
+     */
+    void PostRequest(InputStream inputStream);
+}
+```
+
+El siguiente paso será crear la clase que realizará las peticiones tipo `GET` al servidor y esta estará basada en la clase `AsyncTask`, esta se llamará `GetRequestTask` y tendrá una referecia débil a la clase que la ejecuto, el código seria el siguiente:
+
+```java
+import android.os.AsyncTask;
+import android.util.Log;
+
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+/**
+ * Clase que realizará una petición tipo GET.
+ */
+public class GetRequestTask extends AsyncTask<Void, Void, InputStream> {
+
+    // Referencia de la clase ejecutora.
+    private WeakReference<IRequest> weakReference;
+    // Url del servidor.
+    private String url;
+
+    /**
+     * Constructor de la Tarea.
+     * @param request Intancia de la clase ejecutora.
+     * @param url Url hacia donde haremos la petición.
+     */
+    GetRequestTask(IRequest request, String url) {
+        this.weakReference = new WeakReference<>(request);
+        this.url = url;
+    }
+
+    /**
+     * Hilo ejecutado en background.
+     * @param voids Parametros.
+     * @return InputStream Resultado de la petición.
+     */
+    protected InputStream doInBackground(Void... voids) {
+        InputStream inputStream = null;
+        try {
+            URL url = new URL(this.url);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            try {
+                inputStream = new BufferedInputStream(urlConnection.getInputStream());
+            } finally {
+                urlConnection.disconnect();
+            }
+        }
+        catch(Exception e){
+            Log.e("doInBackground", e.toString());
+        }
+
+        return inputStream;
+    }
+
+    /**
+     * Método que se ejecuta al terminar doInBackground.
+     * @param inputStream Resultado de la petición.
+     */
+    protected void onPostExecute(InputStream inputStream) {
+
+        if (this.weakReference != null) {
+            this.weakReference.get().GetRequest(inputStream);
+            this.weakReference.clear();
+            this.weakReference = null;
+        }
+    }
+}
+```
+
+Tomando de base esta clase crearemos otra que se llamará `PostRequestTask` que realize peticiones tipo `POST` de la misma manera:
+
+```java
+import android.os.AsyncTask;
+import android.util.Log;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+/**
+ * Clase que realizará una petición tipo POST.
+ */
+public class PostRequestTask extends AsyncTask<byte[], Void, InputStream> {
+
+    // Referencia de la clase ejecutora.
+    private WeakReference<IRequest> weakReference;
+    // Url del servidor.
+    private String url;
+
+    /**
+     * Constructor de la Tarea.
+     * @param request Intancia de la clase ejecutora.
+     * @param url Url hacia donde haremos la petición.
+     */
+    PostRequestTask(IRequest request, String url)
+    {
+        this.weakReference = new WeakReference<>(request);
+        this.url = url;
+    }
+
+    /**
+     * Hilo ejecutado en background.
+     * @param messages Lista de messages.
+     * @return InputStream Resultado de la petición.
+     */
+    protected InputStream doInBackground(byte[]... messages) {
+        BufferedInputStream inputStream = null;
+
+        try {
+            URL url = new URL(this.url);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            try {
+                urlConnection.setDoOutput(true);
+                urlConnection.setDoInput(true);
+                urlConnection.setChunkedStreamingMode(0);
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Content-Type", "application/x-protobuf");
+
+                OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+
+                DataOutputStream wr = new DataOutputStream(out);
+                wr.write(messages[0]);
+                wr.flush();
+                wr.close();
+
+                inputStream = new BufferedInputStream(urlConnection.getInputStream());
+
+            } finally {
+                urlConnection.disconnect();
+            }
+        }
+        catch(Exception e){
+            Log.e("app", e.toString());
+        }
+
+        return inputStream;
+    }
+
+    /**
+     * Método que se ejecuta al terminar doInBackground.
+     * @param inputStream Resultado de la petición.
+     */
+    protected void onPostExecute(InputStream inputStream) {
+        if (this.weakReference != null) {
+            this.weakReference.get().PostRequest(inputStream);
+            this.weakReference.clear();
+            this.weakReference = null;
+        }
+    }
+}
+```
+
+Estas clases retornarán objetos del tipo `InputStream` a las clases ejecutoras, el cual nos permitira manipular la respuesta como lo necesitemos.
 
 ## Referencias
 [https://docs.oracle.com/javase/7/docs/api/java/lang/ref/WeakReference.html](https://docs.oracle.com/javase/7/docs/api/java/lang/ref/WeakReference.html) \
