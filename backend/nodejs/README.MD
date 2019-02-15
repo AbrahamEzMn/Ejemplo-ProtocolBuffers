@@ -83,6 +83,18 @@ app.listen(3000, function () {
     console.log('Example app listening on port 3000!');
 });
 ```
+Ademas de eso configuraremos las cabeceras para no tener problemas con el acceso CORS agregando las siguientes lineas:
+
+```javascript
+// Configurar cabeceras y cors
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+});
+```
 
 ### Enviando el message serializado 
 
@@ -241,7 +253,8 @@ Example app listening on port 3000!
 
 ## Referencias
 
-[https://developers.google.com/protocol-buffers/docs/reference/javascript-generated](https://developers.google.com/protocol-buffers/docs/reference/javascript-generated)<br />
-[https://github.com/protocolbuffers/protobuf/tree/master/js](https://github.com/protocolbuffers/protobuf/tree/master/js)<br />
-[https://nodejs.org/en/docs/guides/getting-started-guide/](https://nodejs.org/en/docs/guides/getting-started-guide/)<br />
-[https://expressjs.com/es/starter/hello-world.html](https://expressjs.com/es/starter/hello-world.html)
+[https://developers.google.com/protocol-buffers/docs/reference/javascript-generated](https://developers.google.com/protocol-buffers/docs/reference/javascript-generated) \
+[https://github.com/protocolbuffers/protobuf/tree/master/js](https://github.com/protocolbuffers/protobuf/tree/master/js) \
+[https://nodejs.org/en/docs/guides/getting-started-guide/](https://nodejs.org/en/docs/guides/getting-started-guide/) \
+[https://expressjs.com/es/starter/hello-world.html](https://expressjs.com/es/starter/hello-world.html) \
+[https://victorroblesweb.es/2018/01/31/configurar-acceso-cors-en-nodejs/](https://victorroblesweb.es/2018/01/31/configurar-acceso-cors-en-nodejs/)
