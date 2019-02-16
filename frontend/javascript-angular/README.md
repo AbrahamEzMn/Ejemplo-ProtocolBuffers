@@ -132,7 +132,7 @@ Lo siguiente será crear un componente llamado `messages` con el siguiente coman
 ng generate component messages
 ```
 
-Este componente lo tendremos que agregar dentro de nuestro archivo `app-routing.module.ts` para que se lanze cuando culoquemos la ruta `/messages`, y eso lo haremos de la siguiente forma:
+Este componente lo tendremos que agregar dentro del modulo de `routing` ubicado en el archivo `app-routing.module.ts`, con el cometido de que se lanze el componente cuando coloquemos la ruta `/messages`, y para eso lo haremos de la siguiente forma:
 
 ```javascript
 
