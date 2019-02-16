@@ -96,6 +96,66 @@ protoc --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts --proto_path=./m
 
 Esto nos generará nuestros archivos en la carpeta de `src/messages/`.
 
+## Usando los esquemas 
+
+Para este ejemplo necesitaremos usar el modulo `HttpClientModule` para realizar peticiones `http` a nuestra api, y lo importaremos en la clase `app.module.ts` de la siguiente manera:
+
+```javascript
+
+...
+
+import { HttpClientModule } from '@angular/common/http';
+
+
+@NgModule({
+  
+  ...
+
+  imports: [
+    
+    ...
+    
+    HttpClientModule
+  ],
+  
+  ...
+
+})
+
+...
+
+```
+
+Lo siguiente será crear un componente llamado `messages` con el siguiente comando:
+
+```bash
+ng generate component messages
+```
+
+Este componente lo tendremos que agregar dentro de nuestro archivo `app-routing.module.ts` para que se lanze cuando culoquemos la ruta `/messages`, y eso lo haremos de la siguiente forma:
+
+```javascript
+
+...
+
+import {MessagesComponent} from './messages/messages.component'
+
+const routes: Routes = [
+  { path: 'messages', component: MessagesComponent },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  
+  ...
+  
+})
+
+...
+
+```
+
+
 ## Referencias
 
 [https://github.com/protocolbuffers/protobuf/tree/master/js](https://github.com/protocolbuffers/protobuf/tree/master/js) \
