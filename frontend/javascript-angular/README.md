@@ -96,11 +96,11 @@ protoc --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts --proto_path=./m
 
 Esto nos generará nuestros archivos en la carpeta de `src/messages/`.
 
-## Usando los esquemas 
+## Preparando el proyecto
 
 Para este ejemplo necesitaremos usar el modulo `HttpClientModule` para realizar peticiones `http` a nuestra api, y lo importaremos en la clase `app.module.ts` de la siguiente manera:
 
-```javascript
+```typescript
 
 ...
 
@@ -134,7 +134,7 @@ ng generate component messages
 
 Este componente lo tendremos que agregar dentro del modulo de `routing` ubicado en el archivo `app-routing.module.ts`, con el cometido de que se lanze el componente cuando coloquemos la ruta `/messages`, y para eso lo haremos de la siguiente forma:
 
-```javascript
+```typescript
 
 ...
 
@@ -155,6 +155,189 @@ const routes: Routes = [
 
 ```
 
+### Adaptando el componente
+
+Para mostrar los datos a usar modificaremos el archivo html del componente llamado `messages.component.html` dejandolo de la siguiente manera:
+
+```html
+<h1>Messages</h1>
+
+<h2>Persona obtenida desde el servidor</h2>
+
+<ul>
+  <li><span class="badge">Id:</span> {{personaGet.getId()}}</li>
+  <li><span class="badge">Nombre:</span> {{personaGet.getName()}}</li>
+  <li><span class="badge">Email:</span> {{personaGet.getEmail()}}</li>
+  <li *ngFor="let numeroTelefonico of personaGet.getPhoneList()">
+    <span class="badge">Número Telefonico:</span> {{numeroTelefonico.getNumber()}} <span class="badge">Tipo:</span> 
+      <span [ngSwitch]="numeroTelefonico.getType()">
+        <span *ngSwitchCase="0">Celular</span>
+        <span *ngSwitchCase="1">Casa</span>
+        <span *ngSwitchCase="2">Trabajo</span>
+        <span *ngSwitchDefault>No especifico</span>
+      </span>
+  </li>
+</ul>
+
+<h2>Nombre de la persona enviada al servidor</h2>
+
+<span class="badge">Nombre:</span> {{nombrePersona}}
+```
+Y posteriormente agregaremos un estilo a nuestro archivo `CSS`:
+
+```css
+.badge {
+    background: #000 1px;
+    border-radius: 2px;
+    color: white;
+    padding: 1px
+}
+``` 
+
+Ademas de eso modificaremos el archivo `messages.component.ts` para que se adapte a lo utilizado en la vista e importaremos todas las dependencias que vamos a utilizar:
+
+```typescript
+
+...
+
+import { Person } from '../../messages/person_pb' ;
+import { PhoneNumber } from '../../messages/phoneNumber_pb';
+import { PhoneType } from '../../messages/phoneType_pb';
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+...
+export class MessagesComponent implements OnInit {
+
+  // Persona a usar en la vista.
+  personaGet : Person;
+  // Nombre a usar en a vista.
+  nombrePersona : String;
+
+  /**
+   * Constructor de la clase.
+   * @param http Cliente Http.
+   */
+  constructor( private http: HttpClient ) { 
+    // Inicializamos la persona. 
+    this.personaGet = new Person();
+  }
+
+  /**
+   * Método que se ejecuta al finalizar el DOM en la vista.
+   */
+  ngOnInit() {
+    
+  }
+}
+```
+
+## Usando los esquemas 
+
+Para este ejemplo mandaremos a llamar un servidor de ejemplo en `NodeJs` especificado en la siguiente [liga](https://github.com/AbrahamEzMn/Example-ProtocolBuffers/tree/master/backend/nodejs).
+
+### Pidiendo una persona desde un servidor.
+
+Para solicitar la persona y mostrarlo en la vista crearemos un método llamado `getPerson()` en el archivo `messages.component.ts` y lo mandaremos a llamar en el método `ngOnInit()` donde lo deserializamos en la propiedad `personaGet`, dejandolo de la siguiente manera:
+
+```typescript
+...
+
+export class MessagesComponent implements OnInit {
+
+  ...
+
+  /**
+   * Método que se ejecuta al finalizar el DOM en la vista.
+   */
+  ngOnInit() {
+
+    // Realizamos una petición tipo GET.
+    let getRequest = this.getPerson();
+    getRequest.subscribe(data => {
+      // Deserializamos los datos enviados desde el servidor. 
+       this.personaGet = Person.deserializeBinary(new Uint8Array(data));
+    } );
+  }
+
+  /**
+   * Obtiene una persona desde una petición http tipo GET.
+   * 
+   * @returns Observable<ArrayBuffer> Persona serializada en un arreglo de bytes.   
+   */
+  getPerson () : Observable<ArrayBuffer>  {
+    // Creamos las opciones para la petición.
+    let options= {
+      // Cargamos el encabezado.
+      headers: new HttpHeaders({ 'Content-Type': 'application/x-protobuf' }),
+      // Especificamos que la respuesta sera un ArrayBuffer en lugar de json.
+      'responseType'  : 'arraybuffer' as 'json'
+    };
+    return this.http.get<ArrayBuffer>('http://HOST:<PORT>/PATH', options);
+  }
+}
+```
+
+### Enviando una persona a un servidor.
+
+Para enviar una persona y recibir su nombre crearemos un método llamado `sendPerson()` en el archivo el mismo archivo y lo mandaremos a llamar en el método `ngOnInit()` dejandolo de la siguiente manera:
+
+
+```typescript
+
+...
+
+export class MessagesComponent implements OnInit {
+
+  ...
+
+  /**
+   * Método que se ejecuta al finalizar el DOM en la vista.
+   */
+  ngOnInit() {
+
+    ...
+
+    // Creamos la persona a enviar.
+    let personaPOST = new Person();
+    let numero =new PhoneNumber();
+    numero.setNumber('321321654');
+    numero.setType(PhoneType.WORK);
+
+    personaPOST.addPhone(numero);
+    personaPOST.setName("Nombre 2");
+    personaPOST.setId(2);
+    personaPOST.setEmail('correo@electronico.com');
+
+    // Realizamos una petición tipo POST.
+    let requestName = this.sendPerson(personaPOST);
+    requestName.subscribe(name => {
+      this.nombrePersona =  new String(name);
+    });
+    
+  }
+
+  ...
+
+  /**
+   * Envia una persona serializada en una petición tipo POST.
+   * 
+   * @param person 
+   * @returns Observable<ArrayBuffer> Persona serializada en un arreglo de bytes.  
+   */
+  sendPerson (person: Person) : Observable<Text>  {
+    // Creamos las opciones para la petición.
+    let options= {
+      // Cargamos el encabezado.
+      headers: new HttpHeaders({ 'Content-Type': 'application/x-protobuf' }),
+      // Especificamos que la respuesta sera un Text en lugar de json.
+      'responseType'  : 'text' as 'json'
+    };
+    return this.http.post<Text>('http://HOST:<PORT>/PATH', String.fromCharCode.apply(null,person.serializeBinary()), options);
+  }
+}
+```
 
 ## Referencias
 

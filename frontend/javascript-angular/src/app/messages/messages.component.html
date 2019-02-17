@@ -1,3 +1,22 @@
-<p>
-  messages works!
-</p>
+<h1>Messages</h1>
+
+<h2>Persona obtenida desde el servidor</h2>
+
+<ul>
+  <li><span class="badge">Id:</span> {{personaGet.getId()}}</li>
+  <li><span class="badge">Nombre:</span> {{personaGet.getName()}}</li>
+  <li><span class="badge">Email:</span> {{personaGet.getEmail()}}</li>
+  <li *ngFor="let numeroTelefonico of personaGet.getPhoneList()">
+    <span class="badge">Número Telefonico:</span> {{numeroTelefonico.getNumber()}} <span class="badge">Tipo:</span> 
+      <span [ngSwitch]="numeroTelefonico.getType()">
+        <span *ngSwitchCase="0">Celular</span>
+        <span *ngSwitchCase="1">Casa</span>
+        <span *ngSwitchCase="2">Trabajo</span>
+        <span *ngSwitchDefault>No especifico</span>
+      </span>
+  </li>
+</ul>
+
+<h2>Nombre de la persona enviada al servidor</h2>
+
+<span class="badge">Nombre:</span> {{nombrePersona}}
