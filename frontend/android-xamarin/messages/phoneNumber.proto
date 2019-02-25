@@ -1,0 +1,10 @@
+syntax = "proto3";
+import "phoneType.proto";
+package messages;
+
+
+message PhoneNumber {
+    string number = 1;
+    PhoneType type = 2;
+}
+

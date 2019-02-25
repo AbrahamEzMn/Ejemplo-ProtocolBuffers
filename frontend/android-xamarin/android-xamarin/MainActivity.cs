@@ -10,17 +10,24 @@ using System.IO;
 using Google.Protobuf;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Messages;
 
 namespace android_xamarin
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected async override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
+
+            Person person = Person.Parser.ParseFrom(await this.FetchWeatherAsync("http://192.168.1.82/message"));
+
+            Console.Out.WriteLine(person.ToString());
+
+            Console.Out.WriteLine(await this.Get("http://192.168.1.82/message"));
         }
 
         // Gets weather data from the passed URL.
