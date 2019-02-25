@@ -11,7 +11,10 @@ Versión
 
 Esta guía describe los pasos para instalar ejecutar <b>protoc</b> y generar algunos Messages en la versión de [proto3](https://developers.google.com/protocol-buffers/docs/proto3).
 
+### Instalación en Linux
+
 1.- Descargar el ejecutable del compilador de protocol buffer para sistemas operativos linux en su versión 3.6.1 (protoc), para ver la lista de versiones mas recientes o para diferentes sistemas operativos hacer [click aqui](https://github.com/protocolbuffers/protobuf/releases)   
+
 ```
 $ wget https://github.com/protocolbuffers/protobuf/releases/download/v3.6.1/protoc-3.6.1-linux-x86_64.zip
 ```
@@ -46,6 +49,24 @@ Nos lanzar el siguiente resultado:
 libprotoc 3.6.1
 ```
 
+
+### Instalación en Windows
+
+1.- En caso de Windows necesitaremos de igual manera descargar el ejecutable del compilador de la misma [página](https://github.com/protocolbuffers/protobuf/releases). Este zip tendrá el archivo ejecutable en la carpeta `/bin/`.
+
+2.- Teniendo el archivo lo tendremos que descomprimir en una carpeta en raíz de nuestro disco duro bajo el nombre de `protoc`. Esto nos dejará el ejecutable en la ruta `C:\protoc\bin`.
+
+3.- Lo siguiente será agregar la ruta `C:\protoc\bin` al `PATH` en nuestras `Variables de entorno`, esto nos permitirá utilizar este comando a nivel global.
+
+Ya con esto verificamos el comando protoc con la siguiente sentencia en una nueva ventana `CMD`.
+```
+$ protoc --version
+```
+
+Nos lanzar el siguiente resultado:
+```
+libprotoc 3.6.1
+```
 
 ## Generando el archivo .proto
 
