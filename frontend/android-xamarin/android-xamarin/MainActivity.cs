@@ -25,9 +25,8 @@ namespace android_xamarin
 
             Person person = Person.Parser.ParseFrom(await this.FetchWeatherAsync("http://192.168.1.82/message"));
 
-            Console.Out.WriteLine(person.ToString());
-
-            Console.Out.WriteLine(await this.Get("http://192.168.1.82/message"));
+            this.FindViewById<TextView>(Resource.Id.respuetaGetTextView).Text = person.ToString();
+            this.FindViewById<TextView>(Resource.Id.respuestaPostTextView).Text = await this.Get("http://192.168.1.82/message");
         }
 
         // Gets weather data from the passed URL.
