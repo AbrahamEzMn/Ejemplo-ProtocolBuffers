@@ -1,5 +1,3 @@
-
-
 import SocketServer
 import SimpleHTTPServer
 import re
