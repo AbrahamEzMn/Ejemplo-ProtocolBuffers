@@ -9,4 +9,5 @@ Lenguajes:
 * [Java (Spring)](./java)
 * [Javascript (NodeJs)](./nodejs)
 * [PHP](./php)
+* [Python](./python)
 * [Ruby](./ruby) *Pausado
