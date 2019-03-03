@@ -1,8 +1,10 @@
-# Protocol-Buffers con Android (Xamarin)
+﻿# Protocol-Buffers con Android (Xamarin)
 
 Versión
 
-* Os: Ubuntu 18.04.1 LTS
+* Os: Windows 10
+* IDE: Microsoft Visual Studio Community 2017
+* Xamarin: 4.12.3.80
 * Protobuf: libprotoc 3.6.1
 * Sintaxis: Proto3
 
