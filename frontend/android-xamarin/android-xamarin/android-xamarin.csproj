@@ -56,10 +56,12 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiRequest.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="messages\Person.cs" />
     <Compile Include="messages\PhoneNumber.cs" />
     <Compile Include="messages\PhoneType.cs" />
+    <Compile Include="MessageHelper.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -89,7 +89,8 @@ Esto nos generará tres archivos en la carpeta de `android-xamarin/android-xamar
 
 ## Referencias
 
-(https://www.nuget.org/packages/Google.Protobuf)[https://www.nuget.org/packages/Google.Protobuf] \
-(https://developers.google.com/protocol-buffers/docs/csharptutorial)[https://developers.google.com/protocol-buffers/docs/csharptutorial] \
-(https://developers.google.com/protocol-buffers/docs/reference/csharp-generated)[https://developers.google.com/protocol-buffers/docs/reference/csharp-generated] \
-(https://github.com/protocolbuffers/protobuf/tree/master/csharp)[https://github.com/protocolbuffers/protobuf/tree/master/csharp] \
+[https://www.nuget.org/packages/Google.Protobuf](https://www.nuget.org/packages/Google.Protobuf) \
+[https://developers.google.com/protocol-buffers/docs/csharptutorial](https://developers.google.com/protocol-buffers/docs/csharptutorial) \
+[https://developers.google.com/protocol-buffers/docs/reference/csharp-generated](https://developers.google.com/protocol-buffers/docs/reference/csharp-generated) \
+[https://github.com/protocolbuffers/protobuf/tree/master/csharp](https://github.com/protocolbuffers/protobuf/tree/master/csharp) \
+(https://docs.microsoft.com/en-us/xamarin/xamarin-forms/data-cloud/consuming/rest) [https://docs.microsoft.com/en-us/xamarin/xamarin-forms/data-cloud/consuming/rest]\
