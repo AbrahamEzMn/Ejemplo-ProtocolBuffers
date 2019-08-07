@@ -29,8 +29,8 @@ public static partial class PersonReflection {
           "CgoGTU9CSUxFEAASCAoESE9NRRABEggKBFdPUksQAmIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
-        new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::Person), global::Person.Parser, new[]{ "Name", "Id", "Email", "Phone" }, null, new[]{ typeof(global::Person.Types.PhoneType) }, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Person.Types.PhoneNumber), global::Person.Types.PhoneNumber.Parser, new[]{ "Number", "Type" }, null, null, null)})
+        new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(typeof(global::Person), global::Person.Parser, new[]{ "Name", "Id", "Email", "Phone" }, null, new[]{ typeof(global::Person.Types.PhoneType) }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Person.Types.PhoneNumber), global::Person.Types.PhoneNumber.Parser, new[]{ "Number", "Type" }, null, null, null, null)})
         }));
   }
   #endregion
@@ -298,7 +298,7 @@ public sealed partial class Person : pb::IMessage<Person> {
 
       /// <summary>Field number for the "type" field.</summary>
       public const int TypeFieldNumber = 2;
-      private global::Person.Types.PhoneType type_ = 0;
+      private global::Person.Types.PhoneType type_ = global::Person.Types.PhoneType.Mobile;
       [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
       public global::Person.Types.PhoneType Type {
         get { return type_; }
@@ -329,7 +329,7 @@ public sealed partial class Person : pb::IMessage<Person> {
       public override int GetHashCode() {
         int hash = 1;
         if (Number.Length != 0) hash ^= Number.GetHashCode();
-        if (Type != 0) hash ^= Type.GetHashCode();
+        if (Type != global::Person.Types.PhoneType.Mobile) hash ^= Type.GetHashCode();
         if (_unknownFields != null) {
           hash ^= _unknownFields.GetHashCode();
         }
@@ -347,7 +347,7 @@ public sealed partial class Person : pb::IMessage<Person> {
           output.WriteRawTag(10);
           output.WriteString(Number);
         }
-        if (Type != 0) {
+        if (Type != global::Person.Types.PhoneType.Mobile) {
           output.WriteRawTag(16);
           output.WriteEnum((int) Type);
         }
@@ -362,7 +362,7 @@ public sealed partial class Person : pb::IMessage<Person> {
         if (Number.Length != 0) {
           size += 1 + pb::CodedOutputStream.ComputeStringSize(Number);
         }
-        if (Type != 0) {
+        if (Type != global::Person.Types.PhoneType.Mobile) {
           size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
         }
         if (_unknownFields != null) {
@@ -379,7 +379,7 @@ public sealed partial class Person : pb::IMessage<Person> {
         if (other.Number.Length != 0) {
           Number = other.Number;
         }
-        if (other.Type != 0) {
+        if (other.Type != global::Person.Types.PhoneType.Mobile) {
           Type = other.Type;
         }
         _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -398,7 +398,7 @@ public sealed partial class Person : pb::IMessage<Person> {
               break;
             }
             case 16: {
-              type_ = (global::Person.Types.PhoneType) input.ReadEnum();
+              Type = (global::Person.Types.PhoneType) input.ReadEnum();
               break;
             }
           }

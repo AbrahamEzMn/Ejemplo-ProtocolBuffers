@@ -4,20 +4,22 @@
 require 'google/protobuf'
 
 Google::Protobuf::DescriptorPool.generated_pool.build do
-  add_message "Person" do
-    optional :name, :string, 1
-    optional :id, :int32, 2
-    optional :email, :string, 3
-    repeated :phone, :message, 4, "Person.PhoneNumber"
-  end
-  add_message "Person.PhoneNumber" do
-    optional :number, :string, 1
-    optional :type, :enum, 2, "Person.PhoneType"
-  end
-  add_enum "Person.PhoneType" do
-    value :MOBILE, 0
-    value :HOME, 1
-    value :WORK, 2
+  add_file("person.proto", :syntax => :proto3) do
+    add_message "Person" do
+      optional :name, :string, 1
+      optional :id, :int32, 2
+      optional :email, :string, 3
+      repeated :phone, :message, 4, "Person.PhoneNumber"
+    end
+    add_message "Person.PhoneNumber" do
+      optional :number, :string, 1
+      optional :type, :enum, 2, "Person.PhoneType"
+    end
+    add_enum "Person.PhoneType" do
+      value :MOBILE, 0
+      value :HOME, 1
+      value :WORK, 2
+    end
   end
 end
 
