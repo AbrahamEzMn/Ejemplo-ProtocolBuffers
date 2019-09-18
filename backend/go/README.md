@@ -23,7 +23,7 @@ Las carpetas `bin` y `src` son parte de la estructura básica de un proyecto en 
 
 Lo que sigue es exportar la variable `GOPATH` con el siguiente comando:
 ```
-$ export GOPATH=UBICACION_DEL-PROYECTO
+$ export GOPATH=UBICACION_DEL_PROYECTO
 ```
 
 Instalamos el plugin de `protoc` para `go` con el siguiente comando:
@@ -76,6 +76,11 @@ enum PhoneType {
 Tras generar aquellos archivos lo siguiente sera los messages en el lenguaje de `go`, eso lo haremos con el siguiente comando usando `protoc`.
 ```
 $ protoc --proto_path=./messages/ --go_out=./src/proto/messages ./messages/*.proto
+```
+
+En tal caso de no encontrar el plugin de protoc-gen-go favor de ejecutar el siguiente comando:
+```
+$ protoc --plugin=./bin/protoc-gen-go --proto_path=./messages/ --go_out=./src/proto/messages ./messages/*.proto
 ```
 
 Tras esto nos deberá generar una carpeta `messages`  con tres archivos con extension `.pd.go` en la carpeta de `src/proto`.
