@@ -129,7 +129,7 @@ enum PhoneType {
 }
 ```
 
-Y para generar las clases en C# usaremos el siguiente comando:
+Y para generar las clases en Java usaremos el siguiente comando:
 
 ```bash
 protoc --proto_path=./src/messages/ --java_out=./src/main/java/ ./src/messages/*.proto

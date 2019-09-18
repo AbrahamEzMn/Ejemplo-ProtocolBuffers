@@ -81,9 +81,15 @@ public final class PersonOuterClass {
     }
     private Person() {
       name_ = "";
-      id_ = 0;
       email_ = "";
       phone_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new Person();
     }
 
     @java.lang.Override
@@ -128,16 +134,16 @@ public final class PersonOuterClass {
               break;
             }
             case 34: {
-              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 phone_ = new java.util.ArrayList<messages.PhoneNumberOuterClass.PhoneNumber>();
-                mutable_bitField0_ |= 0x00000008;
+                mutable_bitField0_ |= 0x00000001;
               }
               phone_.add(
                   input.readMessage(messages.PhoneNumberOuterClass.PhoneNumber.parser(), extensionRegistry));
               break;
             }
             default: {
-              if (!parseUnknownFieldProto3(
+              if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -151,7 +157,7 @@ public final class PersonOuterClass {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           phone_ = java.util.Collections.unmodifiableList(phone_);
         }
         this.unknownFields = unknownFields.build();
@@ -171,7 +177,6 @@ public final class PersonOuterClass {
               messages.PersonOuterClass.Person.class, messages.PersonOuterClass.Person.Builder.class);
     }
 
-    private int bitField0_;
     public static final int NAME_FIELD_NUMBER = 1;
     private volatile java.lang.Object name_;
     /**
@@ -348,17 +353,16 @@ public final class PersonOuterClass {
       }
       messages.PersonOuterClass.Person other = (messages.PersonOuterClass.Person) obj;
 
-      boolean result = true;
-      result = result && getName()
-          .equals(other.getName());
-      result = result && (getId()
-          == other.getId());
-      result = result && getEmail()
-          .equals(other.getEmail());
-      result = result && getPhoneList()
-          .equals(other.getPhoneList());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (getId()
+          != other.getId()) return false;
+      if (!getEmail()
+          .equals(other.getEmail())) return false;
+      if (!getPhoneList()
+          .equals(other.getPhoneList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
     }
 
     @java.lang.Override
@@ -520,7 +524,7 @@ public final class PersonOuterClass {
 
         if (phoneBuilder_ == null) {
           phone_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           phoneBuilder_.clear();
         }
@@ -551,55 +555,53 @@ public final class PersonOuterClass {
       public messages.PersonOuterClass.Person buildPartial() {
         messages.PersonOuterClass.Person result = new messages.PersonOuterClass.Person(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.name_ = name_;
         result.id_ = id_;
         result.email_ = email_;
         if (phoneBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             phone_ = java.util.Collections.unmodifiableList(phone_);
-            bitField0_ = (bitField0_ & ~0x00000008);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
           result.phone_ = phone_;
         } else {
           result.phone_ = phoneBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       @java.lang.Override
       public Builder clone() {
-        return (Builder) super.clone();
+        return super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.setField(field, value);
+        return super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
+        return super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
+        return super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
+        return super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
+        return super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -628,7 +630,7 @@ public final class PersonOuterClass {
           if (!other.phone_.isEmpty()) {
             if (phone_.isEmpty()) {
               phone_ = other.phone_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
               ensurePhoneIsMutable();
               phone_.addAll(other.phone_);
@@ -641,7 +643,7 @@ public final class PersonOuterClass {
               phoneBuilder_.dispose();
               phoneBuilder_ = null;
               phone_ = other.phone_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000001);
               phoneBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getPhoneFieldBuilder() : null;
@@ -847,9 +849,9 @@ public final class PersonOuterClass {
       private java.util.List<messages.PhoneNumberOuterClass.PhoneNumber> phone_ =
         java.util.Collections.emptyList();
       private void ensurePhoneIsMutable() {
-        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           phone_ = new java.util.ArrayList<messages.PhoneNumberOuterClass.PhoneNumber>(phone_);
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000001;
          }
       }
 
@@ -999,7 +1001,7 @@ public final class PersonOuterClass {
       public Builder clearPhone() {
         if (phoneBuilder_ == null) {
           phone_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
           phoneBuilder_.clear();
@@ -1076,7 +1078,7 @@ public final class PersonOuterClass {
           phoneBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               messages.PhoneNumberOuterClass.PhoneNumber, messages.PhoneNumberOuterClass.PhoneNumber.Builder, messages.PhoneNumberOuterClass.PhoneNumberOrBuilder>(
                   phone_,
-                  ((bitField0_ & 0x00000008) == 0x00000008),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           phone_ = null;
@@ -1086,7 +1088,7 @@ public final class PersonOuterClass {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
+        return super.setUnknownFields(unknownFields);
       }
 
       @java.lang.Override
@@ -1155,19 +1157,11 @@ public final class PersonOuterClass {
       "\r\n\005email\030\003 \001(\t\022$\n\005phone\030\004 \003(\0132\025.messages" +
       ".PhoneNumberb\006proto3"
     };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-          public com.google.protobuf.ExtensionRegistry assignDescriptors(
-              com.google.protobuf.Descriptors.FileDescriptor root) {
-            descriptor = root;
-            return null;
-          }
-        };
-    com.google.protobuf.Descriptors.FileDescriptor
+    descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           messages.PhoneNumberOuterClass.getDescriptor(),
-        }, assigner);
+        });
     internal_static_messages_Person_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_messages_Person_fieldAccessorTable = new
