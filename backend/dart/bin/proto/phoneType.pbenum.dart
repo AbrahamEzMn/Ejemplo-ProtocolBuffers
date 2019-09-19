@@ -1,30 +1,28 @@
 ///
 //  Generated code. Do not modify.
 //  source: phoneType.proto
-///
-// ignore_for_file: non_constant_identifier_names,library_prefixes,unused_import
+//
+// @dart = 2.3
+// ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
 
 // ignore_for_file: UNDEFINED_SHOWN_NAME,UNUSED_SHOWN_NAME
-import 'dart:core' show int, dynamic, String, List, Map;
+import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class PhoneType extends $pb.ProtobufEnum {
-  static const PhoneType MOBILE = const PhoneType._(0, 'MOBILE');
-  static const PhoneType HOME = const PhoneType._(1, 'HOME');
-  static const PhoneType WORK = const PhoneType._(2, 'WORK');
+  static const PhoneType MOBILE = PhoneType._(0, 'MOBILE');
+  static const PhoneType HOME = PhoneType._(1, 'HOME');
+  static const PhoneType WORK = PhoneType._(2, 'WORK');
 
-  static const List<PhoneType> values = const <PhoneType> [
+  static const $core.List<PhoneType> values = <PhoneType> [
     MOBILE,
     HOME,
     WORK,
   ];
 
-  static final Map<int, PhoneType> _byValue = $pb.ProtobufEnum.initByValue(values);
-  static PhoneType valueOf(int value) => _byValue[value];
-  static void $checkItem(PhoneType v) {
-    if (v is! PhoneType) $pb.checkItemFailed(v, 'PhoneType');
-  }
+  static final $core.Map<$core.int, PhoneType> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static PhoneType valueOf($core.int value) => _byValue[value];
 
-  const PhoneType._(int v, String n) : super(v, n);
+  const PhoneType._($core.int v, $core.String n) : super(v, n);
 }
 
