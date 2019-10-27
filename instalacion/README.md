@@ -7,7 +7,7 @@ Esta guía describe los pasos para instalar ejecutar <b>protoc</b> y generar alg
 
 ### Instalación en Linux
 
-1.- Descargar el ejecutable del compilador de protocol buffer para sistemas operativos linux en su versión 3.6.1 (protoc), para ver la lista de versiones mas recientes o para diferentes sistemas operativos hacer [click aqui](https://github.com/protocolbuffers/protobuf/releases)   
+1.- Descargar el ejecutable del compilador de protocol buffer para sistemas operativos linux en su versión 3.10.0 (protoc), para ver la lista de versiones mas recientes o para diferentes sistemas operativos hacer [click aqui](https://github.com/protocolbuffers/protobuf/releases)   
 
 ```
 $ wget https://github.com/protocolbuffers/protobuf/releases/download/v3.10.0/protoc-3.10.0-linux-x86_64.zip
@@ -15,7 +15,7 @@ $ wget https://github.com/protocolbuffers/protobuf/releases/download/v3.10.0/pro
 
 2.- Descomprimivos el zip en una carpeta llamada protoc
 ```
-$ unzip protoc-3.9.1-linux-x86_64.zip -d protoc
+$ unzip protoc-3.10.0-linux-x86_64.zip -d protoc
 ```
 
 3.- Entramos a la capeta de creada
